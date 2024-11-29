@@ -1,0 +1,86 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <!-- Name Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <mat-icon matPrefix>person</mat-icon>
+      <input matInput type="text" formControlName="name" placeholder="Name" required />
+    </mat-form-field>
+
+    <!-- Email Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <mat-icon matPrefix>email</mat-icon>
+      <input matInput type="email" formControlName="email" placeholder="Email" required />
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <mat-icon matPrefix>lock</mat-icon>
+      <input 
+        matInput 
+        type="password" 
+        formControlName="password" 
+        placeholder="Password (min 6 characters)" 
+        required 
+      />
+      <mat-error *ngIf="passwordLengthError()">
+        Password must be at least 6 characters long.
+      </mat-error>
+      <mat-error *ngIf="passwordAlphanumericError()">
+        Password must be alphanumeric (letters and numbers only).
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Re-enter Password Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Re-enter Password</mat-label>
+      <mat-icon matPrefix>lock</mat-icon>
+      <input 
+        matInput 
+        [type]="hideConfirmPassword ? 'password' : 'text'" 
+        formControlName="confirmPassword" 
+        placeholder="Re-enter Password" 
+        required 
+      />
+      <button 
+    mat-icon-button 
+    matSuffix 
+    type="button" 
+    (click)="toggleConfirmPasswordVisibility()" 
+    [attr.aria-label]="'Toggle confirm password visibility'"
+    matTooltip="Show/Hide Password">
+    <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+  </button>
+    </mat-form-field>
+
+    <!-- Password Mismatch Error -->
+    <mat-error *ngIf="mismatchError()" class="error-message">
+      Passwords do not match. Please re-enter.
+    </mat-error>
+
+    <!-- Register Button -->
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="registerForm.invalid || registerForm.hasError('passwordMismatch')"
+    >
+      <mat-icon>how_to_reg</mat-icon> Register
+    </button>
+  </form>
+
+  <!-- Already Registered Button -->
+  <div class="already-account">
+    <button mat-button color="accent" (click)="navigateToLogin()">
+      <mat-icon>login</mat-icon> Already have an account? Sign In
+    </button>
+  </div>
+
+  <!-- Back Button -->
+  <button mat-button color="warn" class="back-button animated-back-button" (click)="navigateBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
+</div>

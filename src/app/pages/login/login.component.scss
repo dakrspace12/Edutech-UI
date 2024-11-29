@@ -1,0 +1,100 @@
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  button {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  button[mat-button] {
+    text-align: center;
+  }
+
+  .forgot-password,
+  .register-account {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .back-button {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .animated-back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Spacing between icon and text */
+    color: #3f51b5; /* Primary color */
+    transition: transform 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      transform: translateX(-5px); /* Slight movement on hover */
+      color: #283593; /* Darker shade on hover */
+    }
+
+    mat-icon {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: rotate(-15deg); /* Rotate icon slightly */
+      }
+    }
+  }
+
+  .error-message {
+    color: #f44336; // Material Red for error
+    font-size: 14px;
+    margin-top: -10px;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: translateY(30px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

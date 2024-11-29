@@ -1,0 +1,24 @@
+.layout-container {
+  height: 100vh; /* Full-screen height */
+}
+
+mat-sidenav {
+  width: 250px; /* Sidebar width */
+  background-color: #f4f4f4;
+}
+
+mat-sidenav-content {
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  margin-top: 16px;
+}
