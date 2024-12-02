@@ -54,9 +54,10 @@ export class LoginComponent {
       this.http.post(`${environment.apiUrl}/users/login`, userData, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }).subscribe(
-        (response) => {
+        (response: any) => {
           console.log('User logged in successfully', response);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('token', response.token); // Store token
+          this.router.navigate(['/layout/dashboard']); // Navigate to the dashboard
         },
         (error) => {
           console.error('Error logging in', error);
@@ -65,6 +66,7 @@ export class LoginComponent {
       );
     }
   }
+  
   // Handle password visibility toggle
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;

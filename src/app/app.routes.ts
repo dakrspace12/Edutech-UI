@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 // Define the routes
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,  // Assuming you have a LayoutComponent
+    canActivate: [AuthGuard],  // Protect layout route
     children: [
       { path: 'dashboard', component: DashboardComponent }  // Nested route for dashboard
     ]
