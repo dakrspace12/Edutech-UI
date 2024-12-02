@@ -56,7 +56,8 @@ export class LoginComponent {
       }).subscribe(
         (response: any) => {
           console.log('User logged in successfully', response);
-          localStorage.setItem('token', response.token); // Store token
+          localStorage.setItem('token', response.token); //Optionally store the token in localStorage 
+          alert(`Login successful! Token: ${response.token}`); // Display the token in an alert
           this.router.navigate(['/layout/dashboard']); // Navigate to the dashboard
         },
         (error) => {

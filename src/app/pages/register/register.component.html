@@ -1,5 +1,9 @@
 <div class="register-container">
-  <h2>Register</h2>
+  <div class="register-container"> 
+    <div class="register-header">
+     <mat-icon>person_add</mat-icon> 
+     <h2>User Registration</h2> 
+    </div>
   <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <!-- Name Field -->
     <mat-form-field appearance="fill">

@@ -1,11 +1,11 @@
 <div class="login-container">
   <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off">
     <!-- Email Field -->
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <mat-icon matPrefix>email</mat-icon>
-      <input matInput type="email" formControlName="email" placeholder="Email" required />
+      <input matInput type="email" formControlName="email" placeholder="Email" required autocomplete="off" />
     </mat-form-field>
 
     <!-- Password Field -->
@@ -18,6 +18,7 @@
         formControlName="password" 
         placeholder="Password" 
         required 
+        autocomplete="off"
       />
     
       <mat-error *ngIf="passwordLengthError()">
