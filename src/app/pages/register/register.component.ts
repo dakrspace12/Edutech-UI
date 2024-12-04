@@ -36,6 +36,7 @@ export class RegisterComponent {
       {
         name: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
+        mobile_no: ['', Validators.required],
         password: [
           '',
           [
@@ -63,7 +64,7 @@ export class RegisterComponent {
         (error) => {
           alert('Registration failed. Please try again.');
           console.error('Error registering user', error);
-          alert('Registration failed. Please try again.');
+         
         }
       );
     }

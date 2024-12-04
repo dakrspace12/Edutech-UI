@@ -1,27 +1,33 @@
-<div class="register-container">
-  <div class="register-container"> 
-    <div class="register-header">
-     <mat-icon>person_add</mat-icon> 
-     <h2>User Registration</h2> 
-    </div>
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+<div class="register-container animated-bg">
+  <div class="register-header animate-fade-in">
+    <mat-icon>person_add</mat-icon>
+    <h2>User Registration</h2>
+  </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="animate-slide-up">
     <!-- Name Field -->
     <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
+      <mat-label>Name <span class="mandatory">*</span></mat-label>
       <mat-icon matPrefix>person</mat-icon>
       <input matInput type="text" formControlName="name" placeholder="Name" required />
     </mat-form-field>
 
     <!-- Email Field -->
     <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
+      <mat-label>Email <span class="mandatory">*</span></mat-label>
       <mat-icon matPrefix>email</mat-icon>
       <input matInput type="email" formControlName="email" placeholder="Email" required />
     </mat-form-field>
 
+    <!-- Mobile Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile No <span class="mandatory">*</span></mat-label>
+      <mat-icon matPrefix>phone</mat-icon>
+      <input matInput type="number" formControlName="mobile_no" placeholder="Mobile Number" required />
+    </mat-form-field>
+    
     <!-- Password Field -->
     <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
+      <mat-label>Password <span class="mandatory hide-asterisk">*</span></mat-label>
       <mat-icon matPrefix>lock</mat-icon>
       <input 
         matInput 
@@ -40,7 +46,7 @@
 
     <!-- Re-enter Password Field -->
     <mat-form-field appearance="fill">
-      <mat-label>Re-enter Password</mat-label>
+      <mat-label>Re-enter Password <span class="mandatory">*</span></mat-label>
       <mat-icon matPrefix>lock</mat-icon>
       <input 
         matInput 
@@ -50,14 +56,14 @@
         required 
       />
       <button 
-    mat-icon-button 
-    matSuffix 
-    type="button" 
-    (click)="toggleConfirmPasswordVisibility()" 
-    [attr.aria-label]="'Toggle confirm password visibility'"
-    matTooltip="Show/Hide Password">
-    <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-  </button>
+        mat-icon-button 
+        matSuffix 
+        type="button" 
+        (click)="toggleConfirmPasswordVisibility()" 
+        [attr.aria-label]="'Toggle confirm password visibility'"
+        matTooltip="Show/Hide Password">
+        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
     </mat-form-field>
 
     <!-- Password Mismatch Error -->
@@ -66,12 +72,7 @@
     </mat-error>
 
     <!-- Register Button -->
-    <button
-      mat-raised-button
-      type="submit"
-      color="primary"
-      [disabled]="registerForm.invalid || registerForm.hasError('passwordMismatch')"
-    >
+    <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.invalid || registerForm.hasError('passwordMismatch')">
       <mat-icon>how_to_reg</mat-icon> Register
     </button>
   </form>
@@ -85,6 +86,7 @@
 
   <!-- Back Button -->
   <button mat-button color="warn" class="back-button animated-back-button" (click)="navigateBack()">
-    <mat-icon>arrow_back</mat-icon> Back
+    <mat-icon>arrow_back</mat-icon> <span>Back</span>
   </button>
-</div>
+  
+

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment'; // Ensure API endpoint is correct
+import { environment } from 'src/environments/environment';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
 
 @Component({
   selector: 'app-login',
@@ -22,18 +24,22 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule, 
     MatIconModule, 
     MatButtonModule, 
-    CommonModule
-  ],  
+    CommonModule,
+    MatDialogModule,
+    
+  ],
 })
 export class LoginComponent {
-  hideConfirmPassword: boolean = true; // or false, depending on your logic
-  hidePassword: boolean = true; // This will hide the password by default
+  hideConfirmPassword: boolean = true;
+  hidePassword: boolean = true;
   loginForm: FormGroup;
+  token: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -56,9 +62,10 @@ export class LoginComponent {
       }).subscribe(
         (response: any) => {
           console.log('User logged in successfully', response);
-          localStorage.setItem('token', response.token); //Optionally store the token in localStorage 
-          alert(`Login successful! Token: ${response.token}`); // Display the token in an alert
-          this.router.navigate(['/layout/dashboard']); // Navigate to the dashboard
+          this.token = response.token;
+          localStorage.setItem('token', response.token);
+          alert(`Login successful! Token: ${response.token}`);
+          this.router.navigate(['/layout/dashboard']);
         },
         (error) => {
           console.error('Error logging in', error);
@@ -67,7 +74,11 @@ export class LoginComponent {
       );
     }
   }
-  
+
+  ForgotPassword(): void {
+    this.dialog.open(ForgotPasswordPopupComponent);
+  }
+
   // Handle password visibility toggle
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
@@ -75,10 +86,6 @@ export class LoginComponent {
 
   toggleConfirmPasswordVisibility() {
     this.hideConfirmPassword = !this.hideConfirmPassword;
-  }
-
-  onForgotPassword() {
-    this.router.navigate(['/forgot-password']);
   }
 
   passwordLengthError() {
