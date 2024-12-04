@@ -1,14 +1,11 @@
-<div class="login-container animated-bg">
-  <div class="login-header animate-fade-in">
-    <mat-icon>person</mat-icon>
-    <h2>Login User</h2>
-  </div>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="animate-slide-up">
+<div class="login-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off">
     <!-- Email Field -->
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <mat-icon matPrefix>email</mat-icon>
-      <input matInput type="email" formControlName="email" placeholder="Email" required />
+      <input matInput type="email" formControlName="email" placeholder="Email" required autocomplete="off" />
     </mat-form-field>
 
     <!-- Password Field -->
@@ -21,14 +18,17 @@
         formControlName="password" 
         placeholder="Password" 
         required 
+        autocomplete="off"
       />
+    
       <mat-error *ngIf="passwordLengthError()">
         Password must be at least 6 characters long.
       </mat-error>
       <mat-error *ngIf="passwordAlphanumericError()">
         Password must be alphanumeric (letters and numbers only).
       </mat-error>
-      <!-- Toggle Password Visibility -->
+
+      <!-- Eye toggle button -->
       <button 
         mat-icon-button 
         matSuffix 
@@ -44,19 +44,15 @@
     <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">
       <mat-icon>login</mat-icon> Login
     </button>
+
   </form>
 
-  <!-- Display Token -->
-  <div *ngIf="token" class="token-display">
-    <p><strong>Token:</strong> {{ token }}</p>
-  </div>
-
   <!-- Forgot Password Button -->
-  <div class="forgot-password"> 
-    <button mat-button color="accent" (click)="ForgotPassword()"> 
-      <mat-icon>help_outline</mat-icon> 
-      Forgot Password? </button> 
-  </div> 
+  <div class="forgot-password">
+    <button mat-button color="accent" (click)="onForgotPassword()">
+      <mat-icon>help_outline</mat-icon> Forgot Password?
+    </button>
+  </div>
 
   <!-- Register Button -->
   <div class="register-account">
@@ -67,6 +63,6 @@
 
   <!-- Back Button -->
   <button mat-button color="warn" class="back-button animated-back-button" (click)="navigateBack()">
-    <mat-icon>arrow_back</mat-icon> <span>Back</span>
+    <mat-icon>arrow_back</mat-icon> Back
   </button>
 </div>

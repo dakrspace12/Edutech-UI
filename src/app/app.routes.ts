@@ -5,9 +5,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 
-import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
-
-
 // Define the routes
 export const routes: Routes = [
   // Route for the login page
@@ -15,14 +12,9 @@ export const routes: Routes = [
 
   // Route for the register page
   { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordPopupComponent},
 
   // Default route to redirect to login page
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-  //pop for forgot password
-
-  { path: 'forgot-password', component: ForgotPasswordPopupComponent },
 
   // Route for the layout with child routes (dashboard in this case)
   {
