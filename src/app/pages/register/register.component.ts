@@ -36,6 +36,7 @@ export class RegisterComponent {
       {
         name: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
+        mobile_no: ['', Validators.required],
         password: [
           '',
           [
@@ -56,12 +57,14 @@ export class RegisterComponent {
       const userData = this.registerForm.value;
       this.http.post(`${environment.apiUrl}/users/register`, userData).subscribe(  // Using apiUrl from environment
         (response) => {
+          alert("User registered successfully");
           console.log('User registered successfully', response);
           this.router.navigate(['/login']);
         },
         (error) => {
-          console.error('Error registering user', error);
           alert('Registration failed. Please try again.');
+          console.error('Error registering user', error);
+         
         }
       );
     }

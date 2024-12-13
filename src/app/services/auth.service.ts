@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
@@ -23,16 +23,21 @@ export class AuthService {
     );
   }
 
-  login(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users/login`, user, {
+  login(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/users/login`, user, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
+      map(response => {
+        // Store token in localStorage
+        localStorage.setItem('token', response.token);
+        return response;
+      }),
       catchError(handleError)
     );
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
