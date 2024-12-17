@@ -4,7 +4,7 @@
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 4px rgba(205, 141, 2, 0.963);
 
   h2 {
     text-align: center;
@@ -136,22 +136,40 @@
 
   /* Hover Effects for Form Fields */
   mat-form-field:hover {
-    border-color: #0056b3; /* Change border color on hover */
+    border-color: #ffa500; /* Change border color on hover */
     transition: border-color 0.3s ease;
   }
 
   .mat-input-element:hover {
-    border-bottom: 2px solid #0056b3; /* Change bottom border color on hover */
+    border-bottom: 2px solid #ffa500; /* Change bottom border color on hover */
     transition: border-bottom 0.3s ease;
   }
 
   /* Hover Effects for Icon Buttons */
   mat-icon-button:hover mat-icon {
-    color: #0056b3; /* Change icon color on hover */
+    color: #ffa500; /* Change icon color on hover */
     transform: scale(1.2); /* Slightly enlarge the icon on hover */
     transition: color 0.3s ease, transform 0.3s ease;
   }
   .forgot-password { 
     margin-top: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
    }
+   .forgot-password:hover {
+    color: #1e90ff;
+  }
+  
+  .forgot-password:active {
+    color: #008000;
+  }
+   .custom-login-btn {
+    background-color: #ffa500 !important; 
+    color: #ffffff !important;
+  }
+  
+  .custom-login-btn:hover {
+    background-color: #ff8c00 !important;
+  }
+  
 }
