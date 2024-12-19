@@ -1,91 +1,73 @@
 .register-container {
   max-width: 400px;
   margin: auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #F4ECC6;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(238, 232, 232, 0.1);
 
   h2 {
     text-align: center;
     margin-bottom: 20px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    color: white;
   }
 
   mat-form-field {
     width: 100%;
-    margin-bottom: 16px;
-  }
+    color: rgb(15, 15, 14);
 
+  }
+  
   button {
     display: block;
     margin: 10px auto;
     width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Hover effect transition */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
     
     &:hover {
-      background-color: #0056b3; /* Change button background on hover */
-      color: #fff; /* Ensure text color is white on hover */
-      transform: scale(1.05); /* Slightly enlarge the button on hover */
+      color: #000000;
+      transform: scale(1.05);
     }
   }
-
-  button[mat-button] {
+ 
+  .welcome-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F4ECC6;
+    padding: 20px;
+    height: 100px;
     text-align: center;
-  }
-
-  .back-button {
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    overflow: hidden; /* Ensure content stays within button bounds */
-  }
-
-  .animated-back-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* Spacing between icon and text */
-    color: #3f51b5; /* Primary color */
-    transition: color 0.3s ease;
-  
-    &:hover {
-      color: #283593; /* Darker shade on hover */
-    }
-  
-    mat-icon {
-      font-size: 20px;
-      transition: transform 0.3s ease;
-    }
-  
-    span {
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-  
-    &:hover span {
-      transform: translateX(-5px); /* Slide back the text on hover */
-    }
-  }
+}
 
   .error-message {
-    color: #f44336; // Material Red for error
+    color: red;
     font-size: 14px;
     margin-top: -10px;
   } 
 
   .mandatory {
     color: red;
-    font-size: 1.2em; /* Adjust the size as needed */
+    font-size: 1.2em;
   }
 
+  .company-icon {
+    font-size: 30px;
+    color: rgba(55,33,12);
+  }
+  .back-icon{
+    margin-right: auto;
+  }
   .register-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px; /* Adjust spacing as needed */
+    margin: auto;
+    padding: 20px;
+    background-color: #DD9532;
   }
 
   .login-header {
@@ -93,18 +75,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px; /* Adjust spacing as needed */
+    margin-bottom: 20px;
   }
 
   .token-display {
-    margin-top: 20px; /* Adjust spacing as needed */
+    margin-top: 20px;
     font-size: 1em;
     color: #333;
   }
 
-  /* Background Animation */
   .animated-bg {
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #f5f7fa, #e2c3c9);
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -118,7 +99,6 @@
     100% { background: linear-gradient(135deg, #c3cfe2, #f5f7fa); }
   }
 
-  /* Fade-in Animation */
   .animate-fade-in {
     animation: fadeIn 2s ease-in-out;
   }
@@ -128,7 +108,6 @@
     100% { opacity: 1; }
   }
 
-  /* Slide-up Animation */
   .animate-slide-up {
     animation: slideUp 2s ease-in-out;
   }
@@ -142,21 +121,74 @@
     display: none;
   }
 
-  /* Hover Effects for Form Fields */
-  mat-form-field:hover {
-    border-color: #0056b3; /* Change border color on hover */
-    transition: border-color 0.3s ease;
-  }
-
   .mat-input-element:hover {
-    border-bottom: 2px solid #0056b3; /* Change bottom border color on hover */
+    border-bottom: 2px solid #0260c5;
     transition: border-bottom 0.3s ease;
   }
 
-  /* Hover Effects for Icon Buttons */
   mat-icon-button:hover mat-icon {
-    color: #0056b3; /* Change icon color on hover */
-    transform: scale(1.2); /* Slightly enlarge the icon on hover */
+    color: #b8a905;
+    transform: scale(5.2);
     transition: color 0.3s ease, transform 0.3s ease;
   }
+
+  .already-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px; 
+    font-size: 16px;
+    color: #000000;
+  }
+  
+  
+}
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background-color: #f8f4d8;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card-form {
+  background-color: #F3E297;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.card-form mat-form-field {
+  width: 100%;
+}
+
+.btn-register {
+  height: 40px;
+  margin-top: 15px;
+  align-self: center;
+  background-color: #F8B419;
+  border-radius: 5px;
+  border: none;
+}
+
+.card-form {
+  text-align: center;
+  font-size: 14px;
+}
+
+.already-account {
+  font-size: 14px;
+  text-align: center;
+}
+.privacy-terms{
+  font-size: 14px;
+  text-align: center;
 }
