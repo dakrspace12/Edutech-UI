@@ -13,7 +13,7 @@ import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forg
 // Define the routes
 export const routes: Routes = [
   //Route for the Login-main-page
-  {path: 'login-main', component: LoginMainComponent},
+  {path: '', component: LoginMainComponent},
   // Route for the login page
   { path: 'login', component: LoginComponent },
 
