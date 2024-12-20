@@ -5,11 +5,15 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 
+import { LoginMainComponent } from './pages/login-main/login-main.component';
+
 import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
 
 
 // Define the routes
 export const routes: Routes = [
+  //Route for the Login-main-page
+  {path: 'login-main', component: LoginMainComponent},
   // Route for the login page
   { path: 'login', component: LoginComponent },
 
