@@ -12,19 +12,12 @@
     font-weight: 500;
     color: white;
   }
-
-  mat-form-field {
-    width: 100%;
-    color: rgb(15, 15, 14);
-
-  }
   
   button {
     display: block;
     margin: 10px auto;
     width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-
+    transition: background-color 0.2s ease, transform 0.2s ease;
     
     &:hover {
       color: #000000;
@@ -66,7 +59,7 @@
     align-items: center;
     justify-content: center;
     margin: auto;
-    padding: 20px;
+    padding: 5px;
     background-color: #DD9532;
   }
 
@@ -75,7 +68,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
   }
 
   .token-display {
