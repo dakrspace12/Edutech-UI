@@ -76,6 +76,8 @@
             text-decoration: none;
             // font-size: 0.9rem;
             font-weight: 700;
+            cursor:pointer;
+
             &:hover {
                 text-decoration: underline;
             }
@@ -96,6 +98,9 @@
         }
     }
 }
+
+
+
 
 @media (max-width: 768px){
     .login-container{
