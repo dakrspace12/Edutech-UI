@@ -5,13 +5,13 @@
     <div class="right-section">
         <h2>Log in to continue your <br> learning journey</h2>
         <div class="login-buttons">
-            <button mat-raised-button class="google-login">
+            <button mat-raised-button class="google-login" (click)="loginWithGoogle()">
                 <!-- <mat-icon matPrefix></mat-icon> -->
                  <img src="https://cdn-teams-slug.flaticon.com/google.jpg" alt="Google-icom">
                 Continue with Google
             </button>
             <div class="diff-acc">
-                <a href="#" class="secondary-link">Log in to a different account</a>
+                <div class="secondary-link" (click)="LogInToDifferentAccount()">Log in to a different account</div>
             </div>
             
             <div class="diff-acc">
