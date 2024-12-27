@@ -6,6 +6,8 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FooterSectionComponent } from './pages/footer-section/footer-section.component';
 
+import { LoginMainComponent } from './pages/login-main/login-main.component';
+
 import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
 
 
@@ -13,6 +15,10 @@ import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forg
 export const routes: Routes = [
 
   {path:'cyber', component: FooterSectionComponent},
+
+  //Route for the Login-main-page
+  {path: 'login-main', component: LoginMainComponent},
+
   // Route for the login page
   { path: 'login', component: LoginComponent },
 

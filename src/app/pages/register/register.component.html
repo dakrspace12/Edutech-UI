@@ -1,92 +1,65 @@
 <div class="register-container animated-bg">
   <div class="register-header animate-fade-in">
-    <mat-icon>person_add</mat-icon>
-    <h2>User Registration</h2>
+    <mat-icon class="back-icon" (click)="navigateBack()" class="back-icon"><i class="fa-solid fa-reply"></i></mat-icon>
+    <mat-icon class="company-icon">school</mat-icon>
+    <h2>COMPANY</h2>
   </div>
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="animate-slide-up">
-    <!-- Name Field -->
-    <mat-form-field appearance="fill">
-      <mat-label>Name <span class="mandatory">*</span></mat-label>
-      <mat-icon matPrefix>person</mat-icon>
-      <input matInput type="text" formControlName="name" placeholder="Name" required />
-    </mat-form-field>
 
-    <!-- Email Field -->
-    <mat-form-field appearance="fill">
-      <mat-label>Email <span class="mandatory">*</span></mat-label>
-      <mat-icon matPrefix>email</mat-icon>
-      <input matInput type="email" formControlName="email" placeholder="Email" required />
-    </mat-form-field>
-
-    <!-- Mobile Field -->
-    <mat-form-field appearance="fill">
-      <mat-label>Mobile No <span class="mandatory">*</span></mat-label>
-      <mat-icon matPrefix>phone</mat-icon>
-      <input matInput type="number" formControlName="mobile_no" placeholder="Mobile Number" required />
-    </mat-form-field>
+  <div class="welcome-header">
+    <h1>Welcome !</h1>
+  </div>
+  <div class="page-container card-form animate-slide-up">
     
-    <!-- Password Field -->
-    <mat-form-field appearance="fill">
-      <mat-label>Password <span class="mandatory hide-asterisk">*</span></mat-label>
-      <mat-icon matPrefix>lock</mat-icon>
-      <input 
-        matInput 
-        type="password" 
-        formControlName="password" 
-        placeholder="Password (min 6 characters)" 
-        required 
-      />
-      <mat-error *ngIf="passwordLengthError()">
-        Password must be at least 6 characters long.
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <mat-form-field  appearance="fill">
+        <mat-label>Name <span class="mandatory"></span></mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput type="text" formControlName="name" placeholder="Name" required />
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Email <span class="mandatory"></span></mat-label>
+        <mat-icon matPrefix>email</mat-icon>
+        <input matInput type="email" formControlName="email" placeholder="Email" required />
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Mobile No <span class="mandatory"></span></mat-label>
+        <mat-icon matPrefix>phone</mat-icon>
+        <input matInput type="number" formControlName="mobile_no" placeholder="Mobile Number" required />
+      </mat-form-field>
+       
+      <mat-form-field appearance="fill">
+        <mat-label>Password <span class="mandatory"></span></mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput type="password" formControlName="password" placeholder="Password (min 6 characters)" required/>
+        <mat-error *ngIf="passwordLengthError()">Password must be at least 6 characters long.</mat-error>
+        <mat-error *ngIf="passwordAlphanumericError()">Password must be alphanumeric (letters and numbers only).</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm <span class="mandatory"></span></mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Re-enter Password" required/>
+      </mat-form-field>
+    
+      <mat-error *ngIf="mismatchError()" class="error-message">
+        Passwords do not match. Please re-enter.
       </mat-error>
-      <mat-error *ngIf="passwordAlphanumericError()">
-        Password must be alphanumeric (letters and numbers only).
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Re-enter Password Field -->
-    <mat-form-field appearance="fill">
-      <mat-label>Re-enter Password <span class="mandatory">*</span></mat-label>
-      <mat-icon matPrefix>lock</mat-icon>
-      <input 
-        matInput 
-        [type]="hideConfirmPassword ? 'password' : 'text'" 
-        formControlName="confirmPassword" 
-        placeholder="Re-enter Password" 
-        required 
-      />
-      <button 
-        mat-icon-button 
-        matSuffix 
-        type="button" 
-        (click)="toggleConfirmPasswordVisibility()" 
-        [attr.aria-label]="'Toggle confirm password visibility'"
-        matTooltip="Show/Hide Password">
-        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+    
+      <button class="btn-register" type="submit" [disabled]=" registerForm.hasError('passwordMismatch')">
+        Register
       </button>
-    </mat-form-field>
+    
+      <div class="privacy-terms">
+        <p>You are agreeing to the <b>Terms of Services</b> and <b>Privacy Policy</b></p>
+      </div>
+    </form>
+    
+    <div class="already-account">
+      Already have an account?<a class="login-link" (click)="navigateToLogin()">Log in</a>
+    </div>
 
-    <!-- Password Mismatch Error -->
-    <mat-error *ngIf="mismatchError()" class="error-message">
-      Passwords do not match. Please re-enter.
-    </mat-error>
-
-    <!-- Register Button -->
-    <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.invalid || registerForm.hasError('passwordMismatch')">
-      <mat-icon>how_to_reg</mat-icon> Register
-    </button>
-  </form>
-
-  <!-- Already Registered Button -->
-  <div class="already-account">
-    <button mat-button color="accent" (click)="navigateToLogin()">
-      <mat-icon>login</mat-icon> Already have an account? Sign In
-    </button>
   </div>
 
-  <!-- Back Button -->
-  <button mat-button color="warn" class="back-button animated-back-button" (click)="navigateBack()">
-    <mat-icon>arrow_back</mat-icon> <span>Back</span>
-  </button>
-  
-
+</div>
