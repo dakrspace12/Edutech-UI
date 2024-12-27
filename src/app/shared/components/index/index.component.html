@@ -1,0 +1,38 @@
+<div class="index-container">
+    <mat-card class="welcome-card">
+      <mat-card-header>
+        <mat-card-title>Welcome to the Education Portal</mat-card-title>
+        <mat-card-subtitle>Select your login type</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Choose your portal to access relevant features and information.</p>
+      </mat-card-content>
+    </mat-card>
+  
+    <div class="login-options">
+      <mat-card class="option-card">
+        <mat-card-header>
+          <mat-card-title>Admin Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Log in to manage the educational content, users, and system settings.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['/admin/login']">Admin Login</button>
+        </mat-card-actions>
+      </mat-card>
+  
+      <mat-card class="option-card">
+        <mat-card-header>
+          <mat-card-title>User Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Log in to access your courses, assignments, and learning materials.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" [routerLink]="['/login']">User Login</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  
