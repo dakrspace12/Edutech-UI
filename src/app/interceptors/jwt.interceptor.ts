@@ -12,18 +12,11 @@ export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: H
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap(token => {
-            if (token) {
-              return next(req.clone({ headers: req.headers.set('Authorization', `Bearer ${token}`) }));
+        authService.logout();
+              return throwError(()=> new Error('Session expired. Please log in again.'));
             } else {
-              return throwError(error);
+              return throwError(() => error);
             }
           })
         );
-      } else {
-        return throwError(error);
-      }
-    })
-  );
 };

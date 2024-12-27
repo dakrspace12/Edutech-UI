@@ -17,6 +17,7 @@ export const routes: Routes = [
   {path:'cyber', component: FooterSectionComponent},
 
   //Route for the Login-main-page
+
   {path: 'login-main', component: LoginMainComponent},
 
   // Route for the login page
