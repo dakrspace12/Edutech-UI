@@ -9,7 +9,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
       <mat-icon matPrefix>person</mat-icon>
-      <input matInput type="text" formControlName="email" placeholder="Username, email, mobile" required />
+      <input matInput type="text" formControlName="email" placeholder="Username, email, mobile" required autocomplete="username"/>
     </mat-form-field>
 
     <!-- Password Field -->
@@ -22,6 +22,7 @@
         formControlName="password"
         placeholder="Password"
         required 
+        autocomplete="current-password"
       />
       <mat-error *ngIf="passwordLengthError()">
         Password must be at least 6 characters long.
