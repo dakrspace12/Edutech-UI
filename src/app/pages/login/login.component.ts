@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,13 +58,9 @@ export class LoginComponent {
   onLogin() {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
-      this.http.post(`${environment.apiUrl}/users/login`, userData, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      }).subscribe(
+      this.authService.login(userData).subscribe(
         (response: any) => {
           console.log('User logged in successfully', response);
-          this.token = response.token;
-          localStorage.setItem('token', response.token);
           alert(`Login successful! Token: ${response.token}`);
           this.router.navigate(['/layout/dashboard']);
         },
