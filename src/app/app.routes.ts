@@ -4,12 +4,15 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
+import { FooterSectionComponent } from './pages/footer-section/footer-section.component';
 
 import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
 
 
 // Define the routes
 export const routes: Routes = [
+
+  {path:'cyber', component: FooterSectionComponent},
   // Route for the login page
   { path: 'login', component: LoginComponent },
 
