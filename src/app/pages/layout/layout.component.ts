@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'; // For the layout 
 import { MatToolbarModule } from '@angular/material/toolbar'; // For the header toolbar
 import { MatButtonModule } from '@angular/material/button'; // For any buttons in the layout
 import { MatIconModule } from '@angular/material/icon'; // For icons in the toolbar
+import { FooterSectionComponent } from '../footer-section/footer-section.component';
 
 @Component({
   selector: 'app-layout',
@@ -13,7 +14,9 @@ import { MatIconModule } from '@angular/material/icon'; // For icons in the tool
     MatSidenavModule, 
     MatToolbarModule, 
     MatButtonModule, 
-    MatIconModule
+    MatIconModule,
+    FooterSectionComponent
+    
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'] 
