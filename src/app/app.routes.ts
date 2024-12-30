@@ -9,6 +9,7 @@ import { FooterSectionComponent } from './pages/footer-section/footer-section.co
 import { LoginMainComponent } from './pages/login-main/login-main.component';
 
 import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 
 // Define the routes
@@ -40,9 +41,11 @@ export const routes: Routes = [
     component: LayoutComponent,  // Assuming you have a LayoutComponent
     canActivate: [AuthGuard],  // Protect layout route
     children: [
-      { path: 'dashboard', component: DashboardComponent }  // Nested route for dashboard
+      { path: 'dashboard', component: DashboardComponent } ,
+      {path:'navbar', component: NavbarComponent}, // Nested route for dashboard
     ]
   },
+  
 
   // Catch-all route for unknown paths, redirecting to login
   { path: '**', redirectTo: '/login' }

@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Education Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -9,9 +12,32 @@
           <a class="nav-link" routerLink="/courses">Courses</a>
         </li>
       </ul>
+      <form class="form-inline mx-auto">
+        <a class="nav-link" href="#" style="margin-right: 10px;">Explore</a>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search for anything" aria-label="Search">
+      </form>
+  
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/my-learning">My Learning</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/favorites">
+            <i class="fas fa-heart"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            <i class="fas fa-user-circle"></i> AK
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" (click)="logout()">Logout</a>
