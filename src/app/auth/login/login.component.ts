@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/core/services/authservice/auth.service';
 
 @Component({
   selector: 'app-login',

@@ -1,52 +1,29 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LayoutComponent } from './pages/layout/layout.component';
-import { AuthGuard } from './guards/auth.guard';
-import { FooterSectionComponent } from './pages/footer-section/footer-section.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
+import { LayoutComponent } from './shared/components/layout/layout.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { FooterSectionComponent } from './shared/components/footer-section/footer-section.component';
+import { LoginMainComponent } from './auth/login-main/login-main.component';
+import { ForgotPasswordPopupComponent } from './auth/forgot-password-popup/forgot-password-popup.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
-import { LoginMainComponent } from './pages/login-main/login-main.component';
-
-import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-
-
-// Define the routes
 export const routes: Routes = [
-
-  {path:'cyber', component: FooterSectionComponent},
-
-  //Route for the Login-main-page
-
-  {path: 'login-main', component: LoginMainComponent},
-
-  // Route for the login page
+  { path: 'cyber', component: FooterSectionComponent },
+  { path: 'login-main', component: LoginMainComponent },
   { path: 'login', component: LoginComponent },
-
-  // Route for the register page
   { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordPopupComponent},
-
-  // Default route to redirect to login page
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-  //pop for forgot password
-
   { path: 'forgot-password', component: ForgotPasswordPopupComponent },
-
-  // Route for the layout with child routes (dashboard in this case)
+  { path: '', redirectTo: '/login-main', pathMatch: 'full' },
   {
     path: 'layout',
-    component: LayoutComponent,  // Assuming you have a LayoutComponent
-    canActivate: [AuthGuard],  // Protect layout route
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent } ,
-      {path:'navbar', component: NavbarComponent}, // Nested route for dashboard
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'navbar', component: NavbarComponent },
     ]
   },
-  
-
-  // Catch-all route for unknown paths, redirecting to login
   { path: '**', redirectTo: '/login' }
 ];

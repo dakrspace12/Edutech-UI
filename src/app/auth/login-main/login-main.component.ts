@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { LoginToDiffAccPopupComponent } from '../login-to-diff-acc-popup/login-to-diff-acc-popup.component';
+import { LoginToDiffAccPopupComponent } from './login-to-diff-acc-popup/login-to-diff-acc-popup.component';
 
 @Component({
   selector: 'app-login-main',
