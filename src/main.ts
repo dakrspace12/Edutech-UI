@@ -7,7 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http'; // U
 import { routes } from './app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { jwtInterceptor } from './app/interceptors/jwt.interceptor';
+import { jwtInterceptor } from './app/core/interceptors/jwt.interceptor';
 if (environment.production) {
   enableProdMode();
 }

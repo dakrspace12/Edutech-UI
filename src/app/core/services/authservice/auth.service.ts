@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { User } from '../models/user.model';
-import { environment } from '../../environments/environment';
+import { User } from 'src/app/models/user.model';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { handleError } from './error-handler';
+import { handleError } from '../error-handler';
 
 @Injectable({
   providedIn: 'root'
