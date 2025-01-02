@@ -8,6 +8,8 @@ import { FooterSectionComponent } from './shared/components/footer-section/foote
 import { LoginMainComponent } from './auth/login-main/login-main.component';
 import { ForgotPasswordPopupComponent } from './auth/forgot-password-popup/forgot-password-popup.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { CourseEnrollmentComponent } from './modules/student/components/course-enrollment/course-enrollment.component'; // Import the component
+import { CourseContentComponent } from './modules/student/components/course-content/course-content.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent },
@@ -23,7 +25,11 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'navbar', component: NavbarComponent },
+      { path: 'courses', component: CourseEnrollmentComponent },
+      { path: 'courses/:id', component: CourseContentComponent },
     ]
   },
-  { path: '**', redirectTo: '/login' }
+  
+ 
+  { path: '**', redirectTo: '/login' },
 ];

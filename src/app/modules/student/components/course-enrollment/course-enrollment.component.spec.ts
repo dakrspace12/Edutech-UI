@@ -1,5 +1,5 @@
+// course-enrollment.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CourseEnrollmentComponent } from './course-enrollment.component';
 
 describe('CourseEnrollmentComponent', () => {
@@ -8,10 +8,10 @@ describe('CourseEnrollmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CourseEnrollmentComponent]
+      declarations: [CourseEnrollmentComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(CourseEnrollmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
