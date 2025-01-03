@@ -10,7 +10,8 @@ import { environment } from 'src/environments/environment'; // Import the enviro
 import { CommonModule, Location } from '@angular/common';
 
 // Custom password match validator
-import { passwordMatchValidator } from './password-match.validator'; 
+import { passwordMatchValidator } from './password-match.validator';
+import { TokenService } from 'src/app/core/services/tokenservice/token.service'; // TokenService to manage JWT
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ import { passwordMatchValidator } from './password-match.validator';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -31,12 +32,18 @@ export class RegisterComponent {
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
 
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private location: Location) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient,
+    private location: Location,
+    private tokenService: TokenService // TokenService for managing JWT
+  ) {
     this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(3)]],
+        username: ['', [Validators.required, Validators.minLength(3)]], // Updated field to "username"
         email: ['', [Validators.required, Validators.email]],
-        mobile_no: ['', Validators.required],
+        mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Validation for 10-digit mobile numbers
         password: [
           '',
           [
@@ -51,22 +58,32 @@ export class RegisterComponent {
     );
   }
 
-  // On form submission
+  /**
+   * On form submission, registers the user and stores the JWT token.
+   */
   onRegister() {
     if (this.registerForm.valid && !this.registerForm.hasError('passwordMismatch')) {
       const userData = this.registerForm.value;
-      this.http.post(`${environment.apiUrl}/users/register`, userData).subscribe(  // Using apiUrl from environment
-        (response) => {
-          alert("User registered successfully");
+
+      // API call for user registration
+      this.http.post(`${environment.apiUrl}/register`, userData).subscribe(
+        (response: any) => {
+          alert('User registered successfully');
           console.log('User registered successfully', response);
-          this.router.navigate(['/login']);
+
+          // Save the received JWT to local storage using TokenService
+          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
+
+          // Navigate to a protected page (e.g., dashboard) after successful registration
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           alert('Registration failed. Please try again.');
           console.error('Error registering user', error);
-         
         }
       );
+    } else {
+      this.registerForm.markAllAsTouched(); // Highlight validation errors if form is invalid
     }
   }
 
@@ -101,10 +118,12 @@ export class RegisterComponent {
       this.registerForm.hasError('passwordMismatch')
     );
   }
+
   // Navigate to the login page
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
+
   // Navigate back to the previous page
   navigateBack() {
     this.location.back(); // This will take the user to the previous page in history
