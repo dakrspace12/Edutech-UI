@@ -12,12 +12,12 @@ import { CourseEnrollmentComponent } from './modules/student/components/course-e
 import { CourseContentComponent } from './modules/student/components/course-content/course-content.component';
 
 export const routes: Routes = [
-  { path: 'cyber', component: FooterSectionComponent },
+  { path: 'cyber', component: FooterSectionComponent }, 
   { path: 'login-main', component: LoginMainComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordPopupComponent },
-  { path: '', redirectTo: '/login-main', pathMatch: 'full' },
+  { path: '', redirectTo: '/login-main', pathMatch: 'full' }, 
   {
     path: 'layout',
     component: LayoutComponent,
