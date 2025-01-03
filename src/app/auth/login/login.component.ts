@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +26,6 @@ import { AuthService } from 'src/app/core/services/authservice/auth.service';
     MatButtonModule, 
     CommonModule,
     MatDialogModule,
-    
   ],
 })
 export class LoginComponent {
@@ -64,13 +63,18 @@ export class LoginComponent {
           alert(`Login successful! Token: ${response.token}`);
           this.router.navigate(['/layout/dashboard']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            alert('Login failed. Invalid username or password.');
+          } else {
+            alert(`Login failed. Error: ${error.message}`);
+          }
           console.error('Error logging in', error);
-          alert('Login failed. Please check your credentials.');
         }
       );
     }
   }
+  
 
   ForgotPassword(): void {
     this.dialog.open(ForgotPasswordPopupComponent);
