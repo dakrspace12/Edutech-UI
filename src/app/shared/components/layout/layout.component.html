@@ -2,64 +2,7 @@
   <!-- Main Content -->
   <mat-sidenav-content>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
-      <h4 class="navbar-title">EduTech Platform</h4>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/layout/courses">Courses</a>
-          </li>
-        </ul>
-        <!-- Search bar -->
-        <form class="form-inline mx-auto search-bar">
-          <input
-            class="form-control"
-            type="search"
-            placeholder="Search for anything"
-            aria-label="Search"
-          />
-        </form>
-        <ul class="navbar-nav ml-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/my-learning">My Learning</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/favorites">
-              <i class="fas fa-heart"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cart">
-              <i class="fas fa-shopping-cart"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile">
-              <i class="fas fa-user-circle"></i> AK
-            </a>
-          </li>
-          <li class="nav-item">
-            <button mat-button routerLink="/login" class="logout-btn">
-              <mat-icon>logout</mat-icon> Logout
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <app-navbar></app-navbar> 
 
     <!-- Content Area -->
     <div class="content-area">

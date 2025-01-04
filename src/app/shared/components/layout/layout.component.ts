@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'; // For the header 
 import { MatButtonModule } from '@angular/material/button'; // For any buttons in the layout
 import { MatIconModule } from '@angular/material/icon'; // For icons in the toolbar
 import { FooterSectionComponent } from '../footer-section/footer-section.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-layout',
@@ -15,7 +16,8 @@ import { FooterSectionComponent } from '../footer-section/footer-section.compone
     MatToolbarModule, 
     MatButtonModule, 
     MatIconModule,
-    FooterSectionComponent
+    FooterSectionComponent,
+    NavbarComponent,
     
   ],
   templateUrl: './layout.component.html',
