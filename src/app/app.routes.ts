@@ -11,6 +11,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { CourseEnrollmentComponent } from './modules/student/components/course-enrollment/course-enrollment.component'; // Import the component
 import { CourseContentComponent } from './modules/student/components/course-content/course-content.component';
 
+
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent }, 
   { path: 'login-main', component: LoginMainComponent },
@@ -25,8 +26,6 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'navbar', component: NavbarComponent },
-      { path: 'courses', component: CourseEnrollmentComponent },
-      { path: 'courses/:id', component: CourseContentComponent },
     ]
   },
   
