@@ -10,13 +10,13 @@ import { ForgotPasswordPopupComponent } from './auth/forgot-password-popup/forgo
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { CourseEnrollmentComponent } from './modules/student/components/course-enrollment/course-enrollment.component'; 
 import { CourseContentComponent } from './modules/student/components/course-content/course-content.component';
-import { MyLearningComponent } from './modules/student/components/my-learning/my-learning.component';
-import { StudentsAllCoursesComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-all-courses/students-all-courses.component';
 import { StudentsMyListsComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-my-lists/students-my-lists.component';
-import { StudentsWishlistComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-wishlist/students-wishlist.component';
-import { StudentsArchivedComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-archived/students-archived.component';
+import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
 import { StudentsLearningToolsComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-learning-tools/students-learning-tools.component';
-
+import { StudentsArchivedComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-archived/students-archived.component';
+import { StudentsWishlistComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-wishlist/students-wishlist.component';
+import { StudentsAllCoursesComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-all-courses/students-all-courses.component';
+import { MyLearningComponent } from './modules/student/components/my-learning/my-learning.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent }, 
@@ -49,6 +49,7 @@ export const routes: Routes = [
     ]
   },
   
+  {path:'admin-dash', component:AdminDashboardComponent},
  
   { path: '**', redirectTo: '/login' },
 ];
