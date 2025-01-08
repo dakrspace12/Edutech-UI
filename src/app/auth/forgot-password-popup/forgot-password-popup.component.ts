@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/core/services/userservice/user.service';
 
@@ -38,8 +38,7 @@ export class ForgotPasswordPopupComponent {
 
   constructor(
     @Inject(UserService) private userService: UserService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<ForgotPasswordPopupComponent>
+    private snackBar: MatSnackBar
   ) {}
 
   onSubmit() {
@@ -64,6 +63,6 @@ export class ForgotPasswordPopupComponent {
   }
 
   closePopup() {
-    this.dialogRef.close();
+    this.close.emit();
   }
 }

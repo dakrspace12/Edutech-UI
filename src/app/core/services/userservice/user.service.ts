@@ -49,16 +49,16 @@ export class UserService {
     );
   }
 
-  requestPasswordReset(email: string): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/request-password-reset`, { email }, {
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/request-password-reset`, { email }, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
       catchError(this.authService.handleError)
     );
   }
   
-  resetPassword(token: string, newPassword: string): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/reset-password`, { token, newPassword }, {
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, { token, newPassword }, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
       catchError(this.authService.handleError)
