@@ -17,6 +17,7 @@ import { StudentsArchivedComponent } from './modules/student/components/my-learn
 import { StudentsWishlistComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-wishlist/students-wishlist.component';
 import { StudentsAllCoursesComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-all-courses/students-all-courses.component';
 import { MyLearningComponent } from './modules/student/components/my-learning/my-learning.component';
+import { HomeSectionComponent } from './shared/components/home-section/home-section.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent }, 
@@ -30,6 +31,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: 'home', component: HomeSectionComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'navbar', component: NavbarComponent },
       { path: 'courses', component: CourseEnrollmentComponent},

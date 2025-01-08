@@ -1,0 +1,99 @@
+.main-dashboard-container {
+    width: 260px;
+    height: 600px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-right: #ccc 1px solid;
+    left: -260px;
+    transition: left 0.3s ease;
+
+    &.open {
+        left: 0;
+    }
+
+    .toggole {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px;
+        
+        .toggole-head{
+            font-size: 1.3rem;
+
+        }
+    }
+
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
+
+        
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 10px;
+            gap: 80px;
+            border-bottom: 1px solid #ccc;
+
+            .user-name {
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+
+            .nav-items {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                padding-left: 12px;
+
+                li {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    padding: 10px;
+                    cursor: pointer;
+
+                    a {
+                        color: #000;
+                        font-size: 1.1rem;
+                    }
+
+                    mat-icon {
+                        font-size: 1.3rem;
+                    }
+
+                }
+            }
+        }
+
+        .logout-btn {
+            width: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
