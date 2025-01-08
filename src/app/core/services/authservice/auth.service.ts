@@ -116,7 +116,7 @@ export class AuthService {
    * Handles HTTP errors gracefully and provides user-friendly messages.
    * @param error - The error from the HTTP request.
    */
-  private handleError(error: HttpErrorResponse): Observable<never> {
+  public handleError(error: HttpErrorResponse): Observable<never> {
     console.error('HTTP Error:', error); // Log the error for debugging purposes
     const errorMessage =
       error.error instanceof ErrorEvent

@@ -17,7 +17,7 @@ import { StudentsArchivedComponent } from './modules/student/components/my-learn
 import { StudentsWishlistComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-wishlist/students-wishlist.component';
 import { StudentsAllCoursesComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-all-courses/students-all-courses.component';
 import { MyLearningComponent } from './modules/student/components/my-learning/my-learning.component';
-import { HomeSectionComponent } from './shared/components/home-section/home-section.component';
+
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent }, 
@@ -25,6 +25,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordPopupComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: '', redirectTo: '/login-main', pathMatch: 'full' }, 
   {
     path: 'layout',
