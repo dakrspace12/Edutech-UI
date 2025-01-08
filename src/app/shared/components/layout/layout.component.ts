@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button'; // For any buttons i
 import { MatIconModule } from '@angular/material/icon'; // For icons in the toolbar
 import { FooterSectionComponent } from '../footer-section/footer-section.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { StudentDashboardComponent } from 'src/app/modules/student/student-dashboard/student-dashboard.component';
+import { HomeSectionComponent } from '../home-section/home-section.component';
 
 @Component({
   selector: 'app-layout',
@@ -18,6 +20,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
     MatIconModule,
     FooterSectionComponent,
     NavbarComponent,
+    StudentDashboardComponent,
+    HomeSectionComponent
     
   ],
   templateUrl: './layout.component.html',

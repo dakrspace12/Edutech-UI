@@ -1,0 +1,7 @@
+<div class="slider-container">
+    <button class="arrow-btn left" (click)="moveSlide(-1)">&#8592;</button>
+    <div class="image-slider">
+        <img [src]="images[currentImageIndex]" alt="Slider Image">
+    </div>
+    <button class="arrow-btn right" (click)="moveSlide(1)">&#8594;</button>
+</div>

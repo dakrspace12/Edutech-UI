@@ -6,11 +6,13 @@
 
     <!-- Content Area -->
     <div class="content-area">
-      <router-outlet></router-outlet>
+      <app-student-dashboard></app-student-dashboard>
+      <div class="main-content-area">
+        <router-outlet></router-outlet>
+        <!-- Footer -->
+        <app-footer-section></app-footer-section>
+      </div>
     </div>
-
-    <!-- Footer -->
-     <app-footer-section></app-footer-section>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
