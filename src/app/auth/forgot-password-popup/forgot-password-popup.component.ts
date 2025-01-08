@@ -65,4 +65,4 @@ export class ForgotPasswordPopupComponent {
   closePopup() {
     this.close.emit();
   }
-}
+} 
