@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from '../models/user.model';
-import { handleError } from '././error-handler';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from '../authservice/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api/users'; // Base URL for your API
+  private apiUrl = 'http://localhost:8080/api/v1/users'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Method to fetch all users
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
-      catchError(handleError)
+      catchError(this.authService.handleError)
     );
   }
 
@@ -27,7 +27,7 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/${id}`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
-      catchError(handleError)
+      catchError(this.authService.handleError)
     );
   }
 
@@ -36,7 +36,7 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/${user.id}`, user, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
-      catchError(handleError)
+      catchError(this.authService.handleError)
     );
   }
 
@@ -45,7 +45,23 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).pipe(
-      catchError(handleError)
+      catchError(this.authService.handleError)
     );
   }
+
+  requestPasswordReset(email: string): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/request-password-reset`, { email }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      catchError(this.authService.handleError)
+    );
+  }
+  
+  resetPassword(token: string, newPassword: string): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/reset-password`, { token, newPassword }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      catchError(this.authService.handleError)
+    );
+  }  
 }

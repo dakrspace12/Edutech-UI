@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/core/services/userservice/user.service';
 
 @Component({
   selector: 'app-forgot-password-popup',
@@ -21,10 +23,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   templateUrl: './forgot-password-popup.component.html',
-  styleUrls: ['./forgot-password-popup.component.scss']
+  styleUrls: ['./forgot-password-popup.component.scss'],
+  providers: [UserService]
 })
 export class ForgotPasswordPopupComponent {
   @Output() close = new EventEmitter<void>();
@@ -32,24 +36,34 @@ export class ForgotPasswordPopupComponent {
   mobile: string = '';
   selectedOption: string = 'email';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    @Inject(UserService) private userService: UserService,
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<ForgotPasswordPopupComponent>
+  ) {}
 
   onSubmit() {
-    const payload = {
-      email: this.selectedOption === 'email' ? this.email : null,
-      mobile: this.selectedOption === 'mobile' ? this.mobile : null
-    };
-
-    this.http.post('http://your-backend-endpoint/api/forgot-password', payload)
-      .subscribe(response => {
-        console.log('Password reset link sent!', response);
-        this.closePopup();
-      }, error => {
-        console.error('Error sending reset link', error);
+    if (this.selectedOption === 'email') {
+      console.log('Email:', this.email);
+      this.userService.requestPasswordReset(this.email).subscribe({
+        next: (response) => {
+          console.log('Password reset link sent!', response);
+          this.snackBar.open('Password reset link sent!', 'Close', {
+            duration: 3000,
+          });
+          this.closePopup();
+        },
+        error: (error: any) => {
+          console.error('Error sending reset link', error);
+          this.snackBar.open('Error sending reset link. Please try again.', 'Close', {
+            duration: 3000,
+          });
+        }
       });
+    }
   }
 
   closePopup() {
-    this.close.emit();
+    this.dialogRef.close();
   }
 }
