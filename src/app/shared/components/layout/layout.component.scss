@@ -26,8 +26,10 @@ mat-toolbar {
   margin-top: 16px;
 }
 
-.content-area{
-  display: flex; 
+.app-sidebar {
+  display: flex;
+  position: absolute;
+  right: 0;
 }
 
 .image-container {
