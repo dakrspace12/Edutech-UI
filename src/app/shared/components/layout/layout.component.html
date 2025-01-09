@@ -2,17 +2,18 @@
   <!-- Main Content -->
   <mat-sidenav-content>
     <!-- Navbar -->
-    <app-navbar></app-navbar> 
+    <app-navbar (porfileClicked)="toggleSidebar()"></app-navbar> 
 
+    <div class="app-sidebar">
+      <app-sidebar-component [isSidebarOpen]="isSidebarOpen"></app-sidebar-component>
+    </div>
     <!-- Content Area -->
     <div class="content-area">
-      <app-student-dashboard></app-student-dashboard>
-      <div class="main-content-area">
         <router-outlet></router-outlet>
-        <!-- Footer -->
-        <app-footer-section></app-footer-section>
-      </div>
     </div>
+    
+    <!-- Footer -->
+    <app-footer-section></app-footer-section>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

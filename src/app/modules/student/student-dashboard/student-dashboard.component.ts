@@ -9,9 +9,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './student-dashboard.component.scss'
 })
 export class StudentDashboardComponent {
-  isSidebarOpen = true;
   
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
 }
