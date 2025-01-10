@@ -41,9 +41,11 @@ export const jwtInterceptor: HttpInterceptorFn = (
           refreshTokenSubject.next(null);
 
           return authService.refreshAccessToken().pipe(
-            switchMap(() => {
+            switchMap((response: any) => {
               isRefreshing = false;
-              const newToken = authService.getAccessToken();
+              const newToken = response?.accessToken;
+              if (newToken) {
+                localStorage.setItem('accessToken', newToken);
               refreshTokenSubject.next(newToken);
 
               // Retry the failed request with the new token
@@ -53,6 +55,10 @@ export const jwtInterceptor: HttpInterceptorFn = (
                 },
               });
               return next(clonedRequest);
+            } else {
+              authService.logout();
+              return throwError(() => new Error('Session expired. Please log in again.'));
+            }
             }),
             catchError((refreshError) => {
               isRefreshing = false;

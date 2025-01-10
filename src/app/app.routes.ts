@@ -20,6 +20,8 @@ import { MyLearningComponent } from './modules/student/components/my-learning/my
 import { HomeSectionComponent } from './modules/student/components/home-section/home-section.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ManageCoursesComponent } from './modules/admin/components/manage-courses/manage-courses.component';
+import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
+
 
 
 export const routes: Routes = [
@@ -36,7 +38,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: HomeSectionComponent },
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'navbar', component: NavbarComponent },
       { path: 'courses', component: CourseEnrollmentComponent},
       { path: 'courses/:id', component: CourseContentComponent},
@@ -54,10 +55,16 @@ export const routes: Routes = [
       }
     ]
   },
+  {path:'admin-layout', component:AdminLayoutComponent, 
+    children: [  
+    {path:'admin-dashboard', component:AdminDashboardComponent,
+      canActivate: [AuthGuard],
+      children:[ 
+        {path: 'manage-courses', component:ManageCoursesComponent}
+      ]},
   
-  {path:'admin-dash', component:AdminDashboardComponent},
+  ]},
  
-  {path: 'manage-courses', component:ManageCoursesComponent},
   
   { path: '**', redirectTo: '/login' },
 ];
