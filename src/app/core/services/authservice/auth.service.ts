@@ -55,6 +55,23 @@ export class AuthService {
       .pipe(
         map((response) => {
           this.tokenService.storeTokens(response.accessToken, response.refreshToken);
+          // Explicit role data check 
+          const role = response.data?.role;
+          switch (response.role) {
+            case 'ROLE_ADMIN':
+              this.router.navigate(['/admin-layout/admin-dashboard']);
+              break;
+            case 'ROLE_USER':
+              this.router.navigate(['/layout/dashboard']);
+              break;
+            case 'ROLE_INSTRUCTOR':
+              // For future role addition
+              this.router.navigate(['/instructor-dashboard']);
+              break;
+            default:
+              this.router.navigate(['/login']); // fallback or redirect to login
+              break;
+          }
           return response;
         }),
         catchError(this.handleError)
@@ -103,6 +120,15 @@ export class AuthService {
   hasRefreshToken(): boolean {
     return this.tokenService.hasRefreshToken();
   }
+  getUserRole(): string {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user?.role ?? ''; 
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getAccessToken(); // Check if token exists and is valid
+  }
+  
 
   /**
    * Logs out the user by clearing tokens and redirecting to the login page.

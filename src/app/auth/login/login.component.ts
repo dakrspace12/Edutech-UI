@@ -54,56 +54,84 @@ export class LoginComponent {
     });
   }
 
-  onLogin() {
+  onLogin(): void {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
+  
       this.authService.login(userData).subscribe(
         (response: any) => {
-          console.log('User logged in successfully', response);
-          alert(`Login successful! Token: ${response.token}`);
-          this.router.navigate(['/layout/dashboard']);
+          console.log('User logged in successfully:', response);
+  
+          const role = response?.data?.role;
+          console.log('Role received:', role, typeof role);
+  
+          if (!role) {
+            alert('Login successful, but no role assigned. Please contact support.');
+            this.router.navigate(['/login']);
+            return;
+          }
+          this.navigateBasedOnRole(role);
         },
         (error: HttpErrorResponse) => {
+          this.handleLoginError(error);
+        }
+      );
+    } else {
+      alert('Please fill in all required fields correctly.');
+    }
+  }
+  private navigateBasedOnRole(role: string): void {
+          switch (role) {
+            case 'ROLE_ADMIN':
+            this.router.navigate(['/admin-layout/admin-dashboard']);
+              break;
+            case 'ROLE_USER':
+            this.router.navigate(['/layout/dashboard']);
+              break;
+            case 'ROLE_INSTRUCTOR':
+            this.router.navigate(['/instructor-dashboard']);
+              break;
+            default:
+              alert('Unrecognized role or login error.');
+              this.router.navigate(['/login']);
+              break;
+          }
+        }
+        private handleLoginError(error: HttpErrorResponse) :void {
+          console.error('Error logging in:', error);
+  
           if (error.status === 401) {
             alert('Login failed. Invalid username or password.');
+          } else if (error.status >= 500) {
+            alert('Server error occurred. Please try again later.');
           } else {
             alert(`Login failed. Error: ${error.message}`);
           }
-          console.error('Error logging in', error);
         }
-      );
-    }
-  }
-  
-
   ForgotPassword(): void {
     this.dialog.open(ForgotPasswordPopupComponent);
   }
 
   // Handle password visibility toggle
-  togglePasswordVisibility() {
+  togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 
-  toggleConfirmPasswordVisibility() {
-    this.hideConfirmPassword = !this.hideConfirmPassword;
+  passwordLengthError() :boolean {
+    
+    const hasMinLengthError = this.loginForm.get('password')?.hasError('minlength') ??false
+      const isTouched = this.loginForm.get('password')?.touched??false;
+      return hasMinLengthError && isTouched; 
   }
 
-  passwordLengthError() {
-    return (
-      this.loginForm.get('password')?.hasError('minlength') &&
-      this.loginForm.get('password')?.touched
-    );
+  passwordAlphanumericError(): boolean {
+  
+    const hasPatternError = this.loginForm.get('password')?.hasError('pattern') ?? false
+      const isTouched = this.loginForm.get('password')?.touched??false;
+      return hasPatternError && isTouched;
   }
 
-  passwordAlphanumericError() {
-    return (
-      this.loginForm.get('password')?.hasError('pattern') &&
-      this.loginForm.get('password')?.touched
-    );
-  }
-
-  navigateToRegister() {
+  navigateToRegister():void {
     this.router.navigate(['/register']);
   }
 
