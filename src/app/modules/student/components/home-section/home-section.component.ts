@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home-section',
   standalone: true,
-  imports: [ RouterModule ],
+  imports: [ 
+    RouterModule,
+    MatIconModule,
+   ],
   templateUrl: './home-section.component.html',
   styleUrl: './home-section.component.scss'
 })
