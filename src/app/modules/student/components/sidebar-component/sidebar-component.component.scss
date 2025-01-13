@@ -21,6 +21,7 @@
         border-right: #ccc 1px solid;
         right: -260px;
         transition: right 0.3s ease;
+        z-index: 1000;
     
         &.open {
             right: 0;
