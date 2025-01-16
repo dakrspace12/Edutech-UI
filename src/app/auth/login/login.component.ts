@@ -63,11 +63,19 @@ export class LoginComponent {
           console.log('User logged in successfully:', response);
   
           const role = response?.data?.role;
+          const accessToken = response?.data?.accessToken;
           console.log('Role received:', role, typeof role);
   
           if (!role) {
             alert('Login successful, but no role assigned. Please contact support.');
             this.router.navigate(['/login']);
+            return;
+          }
+          if (accessToken) {
+            localStorage.setItem('token', accessToken); 
+            console.log('Access token saved to localStorage');
+          } else {
+            alert('Access token missing. Please try again.');
             return;
           }
           this.navigateBasedOnRole(role);

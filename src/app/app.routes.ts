@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { FooterSectionComponent } from './shared/components/footer-section/footer-section.component';
@@ -63,7 +62,5 @@ export const routes: Routes = [
     { path: 'manage-courses', component: ManageCoursesComponent },
   
   ]},
- 
-  
   { path: '**', redirectTo: '/login' },
 ];
