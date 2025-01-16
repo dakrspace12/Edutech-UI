@@ -58,10 +58,12 @@ export const routes: Routes = [
   {path:'admin-layout', component:AdminLayoutComponent, 
     children: [  
     {path:'admin-dashboard', component:AdminDashboardComponent,
-      canActivate: [AuthGuard],
-      children:[ 
-        {path: 'manage-courses', component:ManageCoursesComponent}
-      ]},
+      // canActivate: [AuthGuard],
+      // children:[ 
+      //   {path: 'manage-courses', component:ManageCoursesComponent}
+      // ]
+    },
+    { path: 'manage-courses', component: ManageCoursesComponent },
   
   ]},
  
