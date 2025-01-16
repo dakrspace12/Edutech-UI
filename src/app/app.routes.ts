@@ -55,14 +55,11 @@ export const routes: Routes = [
       }
     ]
   },
-  {path:'admin-layout', component:AdminLayoutComponent, 
-    children: [  
-    {path:'admin-dashboard', component:AdminDashboardComponent,
-      // canActivate: [AuthGuard],
-      // children:[ 
-      //   {path: 'manage-courses', component:ManageCoursesComponent}
-      // ]
-    },
+  {path:'admin-layout', 
+    component:AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+    { path:'admin-dashboard', component:AdminDashboardComponent },
     { path: 'manage-courses', component: ManageCoursesComponent },
   
   ]},

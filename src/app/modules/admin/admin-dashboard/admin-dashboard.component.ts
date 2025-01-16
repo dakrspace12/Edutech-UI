@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
