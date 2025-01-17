@@ -52,7 +52,7 @@ export const routes: Routes = [
           { path: 'archived', component: StudentsArchivedComponent},
           { path: 'learning-tools', component: StudentsLearningToolsComponent}
         ]
-      }
+      }   
     ]
   },
   {path:'admin-layout', 

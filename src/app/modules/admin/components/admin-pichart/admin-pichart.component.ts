@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-admin-pichart',
@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './admin-pichart.component.html',
   styleUrl: './admin-pichart.component.scss'
 })
-export class AdminPichartComponent {
-
+export class AdminPichartComponent{
+    
 }
