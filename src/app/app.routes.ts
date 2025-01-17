@@ -20,6 +20,7 @@ import { HomeSectionComponent } from './modules/student/components/home-section/
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ManageCoursesComponent } from './modules/admin/components/manage-courses/manage-courses.component';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
+import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
 
 
 
@@ -60,6 +61,7 @@ export const routes: Routes = [
     children: [
     { path:'admin-dashboard', component:AdminDashboardComponent },
     { path: 'manage-courses', component: ManageCoursesComponent },
+    { path: 'manage-users', component: ManageUsersComponent },
   
   ]},
   { path: '**', redirectTo: '/login' },
