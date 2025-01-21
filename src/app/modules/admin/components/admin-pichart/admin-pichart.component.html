@@ -1,5 +1,6 @@
-<div>
-  <h2>Admit Pi-Charts</h2>
-  <canvas id="pieChart"></canvas>
-  
+<div class="pieChart">
+  <canvas baseChart
+          [data]="pieChartData"
+          [type]="pieChartType">
+  </canvas>
 </div>

@@ -41,6 +41,8 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
         username: ['', [Validators.required, Validators.minLength(3)]], // Updated field to "username"
         email: ['', [Validators.required, Validators.email]],
         mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Validation for 10-digit mobile numbers
