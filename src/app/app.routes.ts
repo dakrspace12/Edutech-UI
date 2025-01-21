@@ -1,43 +1,68 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LayoutComponent } from './pages/layout/layout.component';
-import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { LayoutComponent } from './shared/components/layout/layout.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { FooterSectionComponent } from './shared/components/footer-section/footer-section.component';
+import { LoginMainComponent } from './auth/login-main/login-main.component';
+import { ForgotPasswordPopupComponent } from './auth/forgot-password-popup/forgot-password-popup.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { CourseEnrollmentComponent } from './modules/student/components/course-enrollment/course-enrollment.component'; 
+import { CourseContentComponent } from './modules/student/components/course-content/course-content.component';
+import { StudentsMyListsComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-my-lists/students-my-lists.component';
+import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
+import { StudentsLearningToolsComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-learning-tools/students-learning-tools.component';
+import { StudentsArchivedComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-archived/students-archived.component';
+import { StudentsWishlistComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-wishlist/students-wishlist.component';
+import { StudentsAllCoursesComponent } from './modules/student/components/my-learning/my-learning-sub-comonents/students-all-courses/students-all-courses.component';
+import { MyLearningComponent } from './modules/student/components/my-learning/my-learning.component';
+import { HomeSectionComponent } from './modules/student/components/home-section/home-section.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ManageCoursesComponent } from './modules/admin/components/manage-courses/manage-courses.component';
+import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
+import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
 
-import { LoginMainComponent } from './pages/login-main/login-main.component';
-
-import { ForgotPasswordPopupComponent } from './pages/forgot-password-popup/forgot-password-popup.component';
 
 
-// Define the routes
 export const routes: Routes = [
-  //Route for the Login-main-page
-  {path: 'login-main', component: LoginMainComponent},
-  // Route for the login page
+  { path: 'cyber', component: FooterSectionComponent }, 
+  { path: 'login-main', component: LoginMainComponent },
   { path: 'login', component: LoginComponent },
-
-  // Route for the register page
   { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordPopupComponent},
-
-  // Default route to redirect to login page
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-  //pop for forgot password
-
   { path: 'forgot-password', component: ForgotPasswordPopupComponent },
-
-  // Route for the layout with child routes (dashboard in this case)
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: '', redirectTo: '/login-main', pathMatch: 'full' }, 
   {
     path: 'layout',
-    component: LayoutComponent,  // Assuming you have a LayoutComponent
-    canActivate: [AuthGuard],  // Protect layout route
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent }  // Nested route for dashboard
+      { path: 'dashboard', component: HomeSectionComponent },
+      { path: 'navbar', component: NavbarComponent },
+      { path: 'courses', component: CourseEnrollmentComponent},
+      { path: 'courses/:id', component: CourseContentComponent},
+      { 
+        path: 'my-learning',
+        component: MyLearningComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: '', component: StudentsAllCoursesComponent},
+          { path: 'my-lists', component: StudentsMyListsComponent},
+          { path: 'wishlist', component: StudentsWishlistComponent},
+          { path: 'archived', component: StudentsArchivedComponent},
+          { path: 'learning-tools', component: StudentsLearningToolsComponent}
+        ]
+      }   
     ]
   },
-
-  // Catch-all route for unknown paths, redirecting to login
-  { path: '**', redirectTo: '/login' }
+  {path:'admin-layout', 
+    component:AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+    { path:'admin-dashboard', component:AdminDashboardComponent },
+    { path: 'manage-courses', component: ManageCoursesComponent },
+    { path: 'manage-users', component: ManageUsersComponent },
+  
+  ]},
+  { path: '**', redirectTo: '/login' },
 ];
