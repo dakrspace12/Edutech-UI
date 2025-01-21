@@ -33,9 +33,9 @@ export class NavbarComponent{
 
   data: any[]=[];
   loggedInUser: any = {};
-  
+
   getUserName(){
-    const loggedInUserId = 1; // Replace with the actual logged-in user ID or fetch it dynamically
+    const loggedInUserId = 1;
     this.http.get(`http://localhost:8080/api/v1/users`).subscribe((response: any) => {
       console.log(response);
       this.data = response.data;

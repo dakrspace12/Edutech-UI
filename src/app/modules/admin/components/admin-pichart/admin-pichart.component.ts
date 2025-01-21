@@ -14,11 +14,10 @@ export class AdminPichartComponent {
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
     labels: ['Students', 'Admins', 'Instructors'],
     datasets: [{
-      data: [300, 50, 100] // Example data, replace with dynamic data
+      data: [300, 50, 100]
     }]
   };
 
-  // Method to update chart data dynamically
   updateChartData(students: number, admins: number, instructors: number) {
     this.pieChartData.datasets[0].data = [students, admins, instructors];
   }
