@@ -1,12 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AdminPichartComponent } from '../components/admin-pichart/admin-pichart.component';
+import { StudentsPichartComponent } from '../components/students-pichart/students-pichart.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule,
+    AdminPichartComponent,
+    StudentsPichartComponent,
+  ]
 })
 export class AdminDashboardComponent implements OnInit {
   totalCourses: number;
