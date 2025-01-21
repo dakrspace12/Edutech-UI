@@ -50,14 +50,11 @@ export class AdminNavbarComponent {
 
     this.http.get('http://localhost:8080/api/v1/users', { headers }).subscribe(
       (response: any) => {
-        // Check if response contains the data array
         if (response && response.data) {
-          // Extract all IDs from the data array
           const userIds = response.data.map((user: any) => user.id);
           console.log('All User IDs:', userIds);
           this.getUserName(userIds)
 
-          // You can now use `userIds` for further processing
         } else {
           console.error('Unexpected response structure:', response);
         }
@@ -66,13 +63,6 @@ export class AdminNavbarComponent {
         console.error('Error fetching users:', error);
       }
     );
-
-    // this.http.get('http://localhost:8080/api/v1/users', { headers }).subscribe((response: any) => {
-    //   const loggedInUserId = response.id;
-    //   console.log(loggedInUserId);
-    //   // this.getUserName(loggedInUserId);
-      
-    // });
   }
 
   getUserName(loggedInUserId: number) {
