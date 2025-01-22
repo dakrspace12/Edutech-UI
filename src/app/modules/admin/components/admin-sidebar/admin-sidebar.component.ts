@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
@@ -6,17 +8,46 @@ import { AuthService } from 'src/app/core/services/authservice/auth.service';
   selector: 'app-admin-sidebar',
   standalone: true,
   imports: [
-    MatIconModule
+    MatIconModule,
+    CommonModule,
   ],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.scss'
 })
 export class AdminSidebarComponent {
-  constructor(private authService: AuthService) {}
+  userId: string | null = null
+  firstName: string | null = null
+  lastName: string | null = null
+  constructor(private authService: AuthService,
+    private http: HttpClient,
+  ) {}
     @Input() isSidebarOpen = false;
    
   
     logout(){
       this.authService.logout();
     }
+  ngOnInit() {
+    this.userId = this.authService.getId();
+    console.log('Decoded User ID:', this.userId);
+
+    if (this.userId) {
+      this.getUserDetails(this.userId);
+    }
+  }
+
+
+  getUserDetails(userId: string): void {
+    const url = `http://localhost:8080/api/v1/users/${userId}`;
+    this.http.get<any>(url).subscribe(
+      (response) => {
+        const userData = response.data;
+        this.firstName = userData.firstName;
+        this.lastName = userData.lastName;
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
 }

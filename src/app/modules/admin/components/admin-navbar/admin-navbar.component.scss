@@ -43,7 +43,18 @@
     outline: none;
     box-shadow: 0 0 6px rgba(255, 165, 0, 0.8);
 }
+.Name_logo{
+    margin-bottom: -12px;
+    font-weight: 600;
+    padding: 5px;
+    background-color: #fff;
+    color: #ffa500;
+    border-radius: 50%;
+    margin-bottom: 1px;
+    cursor: pointer;
+    border: 1px solid gray;
 
+}
 .logout-btn {
     display: flex;
     align-items: center;

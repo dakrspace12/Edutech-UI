@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { TokenService } from '../tokenservice/token.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,20 @@ export class AuthService {
     private tokenService: TokenService
   ) {}
 
+  getId(): string | null{
+    const token = localStorage.getItem('token')
+    if(token){
+      try{
+        const decodedToken : any = jwtDecode(token);
+        return decodedToken.id || null;
+      } catch (error){
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    console.warn('No token found in localStorage');
+    return null;
+  }
   /**
    * Registers a new user.
    * @param user - User object containing username, email, password, etc.

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/services/authservice/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -11,11 +12,15 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     MatIconModule,
     RouterModule,
+    CommonModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent{
+  userId: string | null = null
+  firstNameInitial: string | null = null
+  lastNameInitial: string | null = null
   constructor(private authService: AuthService, private router: Router,
     private http: HttpClient
   ) {}
@@ -31,20 +36,26 @@ export class NavbarComponent{
     this.router.navigate(['/login']);
   }
 
-  data: any[]=[];
-  loggedInUser: any = {};
+  ngOnInit() {
+    this.userId = this.authService.getId();
 
-  getUserName(){
-    const loggedInUserId = 1;
-    this.http.get(`http://localhost:8080/api/v1/users`).subscribe((response: any) => {
-      console.log(response);
-      this.data = response.data;
-      this.loggedInUser = this.data.find(user => user.id === loggedInUserId);
-      if (this.loggedInUser) {
-        console.log(`First Name: ${this.loggedInUser.firstName}, Last Name: ${this.loggedInUser.lastName}`);
-      } else {
-        console.log('User not found');
+    if (this.userId) {
+      this.getUserDetails(this.userId);
+    }
+  }
+
+
+  getUserDetails(userId: string): void {
+    const url = `http://localhost:8080/api/v1/users/${userId}`;
+    this.http.get<any>(url).subscribe(
+      (response) => {
+        const userData = response.data;
+        this.firstNameInitial = userData.firstName ? userData.firstName.charAt(0).toUpperCase() : 'N';
+        this.lastNameInitial = userData.lastName ? userData.lastName.charAt(0).toUpperCase() : 'N';
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
       }
-    });
+    );
   }
 }
