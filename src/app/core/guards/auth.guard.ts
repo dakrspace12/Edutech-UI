@@ -18,8 +18,6 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/login']);
           return false;
         }
-        const userId = decodedToken.id;
-        console.log('User ID:', userId);
       return true;
     } catch (error) {
       console.error('Invalid token', error);
