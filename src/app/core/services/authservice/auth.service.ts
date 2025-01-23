@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   getId(): string | null{
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('accessToken')
     if(token){
       try{
         const decodedToken : any = jwtDecode(token);

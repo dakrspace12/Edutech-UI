@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
+import { TokenService } from 'src/app/core/services/tokenservice/token.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginComponent {
     private router: Router,
     private http: HttpClient,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenService: TokenService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -64,18 +66,21 @@ export class LoginComponent {
   
           const role = response?.data?.role;
           const accessToken = response?.data?.accessToken;
+          const refreshToken = response?.data?.refreshToken;
           console.log('Role received:', role, typeof role);
+          console.log('Access Token:', accessToken);
+          console.log('Refresh Token:', refreshToken);
   
           if (!role) {
             alert('Login successful, but no role assigned. Please contact support.');
             this.router.navigate(['/login']);
             return;
           }
-          if (accessToken) {
-            localStorage.setItem('token', accessToken); 
-            console.log('Access token saved to localStorage');
+          if (accessToken && refreshToken) {
+            this.tokenService.storeTokens(accessToken, refreshToken);
+            console.log('Access token and Refresh Token saved to localStorage');
           } else {
-            alert('Access token missing. Please try again.');
+            alert('Access token or refresh token are missing. Please try again.');
             return;
           }
           this.navigateBasedOnRole(role);
