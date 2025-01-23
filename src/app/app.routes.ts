@@ -21,6 +21,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { ManageCoursesComponent } from './modules/admin/components/manage-courses/manage-courses.component';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
+import { InstructorLayoutComponent } from './shared/components/instructor-layout/instructor-layout.component';
 
 
 
@@ -64,5 +65,9 @@ export const routes: Routes = [
     { path: 'manage-users', component: ManageUsersComponent },
   
   ]},
+  {
+    path: 'instructor-Layot', 
+    component: InstructorLayoutComponent,
+  },
   { path: '**', redirectTo: '/login' },
 ];
