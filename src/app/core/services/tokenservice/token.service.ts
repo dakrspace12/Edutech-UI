@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-   private accessTokenKey =  'accessToken';
-   private refreshTokenKey =  'refreshToken';
+   private readonly accessTokenKey =  'accessToken';
+   private readonly refreshTokenKey =  'refreshToken';
    /**
    * Stores both the access and refresh tokens in localStorage.
    * @param accessToken The access token to store.
@@ -18,6 +18,7 @@ export class TokenService {
   
     localStorage.setItem(this.accessTokenKey, accessToken);
     localStorage.setItem(this.refreshTokenKey, refreshToken);
+    console.log('Tokens stored successfully.');
     } catch (error){
       console.error('Error storing tokens in localStorage:', error);
     }
