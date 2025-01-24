@@ -52,7 +52,7 @@ export class AdminNavbarComponent {
   getUserDetails(userId: string): void {const headers = new HttpHeaders().set('Authorization', `Bearer ${this.tokenService}`);
 
   const url = `http://localhost:8080/api/v1/admin/users/${userId}`;
-  this.http.get<any>(url, { headers }).subscribe(
+  this.http.get<any>(url, { headers }).subscribe( 
     (response) => {
       if (response) {
         const userData = response;

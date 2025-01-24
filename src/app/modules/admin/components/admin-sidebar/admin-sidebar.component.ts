@@ -45,7 +45,7 @@ export class AdminSidebarComponent {
         this.lastName = userData.lastName;
       },
       (error) => {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching user details:', error); 
       }
     );
   }

@@ -135,7 +135,7 @@ export class LoginComponent {
   }
 
   navigateToRegister():void {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/register']); 
   }
 
   navigateBack():void {

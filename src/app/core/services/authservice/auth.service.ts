@@ -60,7 +60,7 @@ export class AuthService {
    * Logs in the user, stores the tokens, and returns the server response.
    * @param user - User credentials (email and password).
    * @returns Observable of response with tokens.
-   */
+   */ 
   login(user: { email: string; password: string }): Observable<any> {
     const loginData = {
       email: user.email,
