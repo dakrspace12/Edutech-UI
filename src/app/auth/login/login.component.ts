@@ -64,10 +64,8 @@ export class LoginComponent {
         (response: any) => {
           console.log('User logged in successfully:', response);
   
-          const role = response?.data?.role;
-          const accessToken = response?.data?.accessToken;
-          const refreshToken = response?.data?.refreshToken;
-          console.log('Role received:', role, typeof role);
+          const {role, accessToken,refreshToken }= response?.data || {};
+          console.log('Role received:', role);
           console.log('Access Token:', accessToken);
           console.log('Refresh Token:', refreshToken);
   
@@ -76,13 +74,12 @@ export class LoginComponent {
             this.router.navigate(['/login']);
             return;
           }
-          if (accessToken && refreshToken) {
-            this.tokenService.storeTokens(accessToken, refreshToken);
-            console.log('Access token and Refresh Token saved to localStorage');
-          } else {
+          if (!accessToken || !refreshToken) {
             alert('Access token or refresh token are missing. Please try again.');
             return;
           }
+          this.tokenService.storeTokens(accessToken, refreshToken);
+          console.log('Tokens stored in cookies.');
           this.navigateBasedOnRole(role);
         },
         (error: HttpErrorResponse) => {

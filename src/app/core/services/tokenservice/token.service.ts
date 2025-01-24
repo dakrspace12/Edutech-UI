@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,21 +8,26 @@ export class TokenService {
 
    private readonly accessTokenKey =  'accessToken';
    private readonly refreshTokenKey =  'refreshToken';
-   /**
-   * Stores both the access and refresh tokens in localStorage.
-   * @param accessToken The access token to store.
-   * @param refreshToken The refresh token to store.
-   */
+   constructor(private cookieService: CookieService) {}
    
   storeTokens(accessToken: string, refreshToken: string): void {
-    try{
+    const options: { 
+      path: string; 
+      secure: boolean; 
+      sameSite: 'Strict' | 'Lax' | 'None'; 
+      expires: number;
+    } = {
+      path: '/',
+      secure: true, // Requires HTTPS
+      sameSite: 'Strict', // Correctly using string value 'Strict'
+      expires: 1, // Set expiration in days (adjust as needed)
+    };
+
   
-    localStorage.setItem(this.accessTokenKey, accessToken);
-    localStorage.setItem(this.refreshTokenKey, refreshToken);
+    this.cookieService.set(this.accessTokenKey, accessToken, options);
+    this.cookieService.set(this.refreshTokenKey, refreshToken,options);
     console.log('Tokens stored successfully.');
-    } catch (error){
-      console.error('Error storing tokens in localStorage:', error);
-    }
+   
   }
 
   /**
@@ -29,14 +35,7 @@ export class TokenService {
    * @returns The access token or null if not found.
    */
   getAccessToken(): string | null {
-    try {
-    const token = localStorage.getItem(this.accessTokenKey);
-    console.log('Retrieved access token:', token); 
-    return token;
-  }catch (error){
-    console.error('Error retrieving access token from localStorage', error);
-    return null;
-  }
+    return this.cookieService.get(this.accessTokenKey) || null;
 }
 
   /**
@@ -44,41 +43,13 @@ export class TokenService {
    * @returns The refresh token or null if not found.
    */
   getRefreshToken(): string | null {
-    try{
-    const token= localStorage.getItem(this.refreshTokenKey);
-    console.log('Retrieved refresh token:', token);  
-    return token;
-  } catch (error) {
-    console.error('Error retrieving refresh token from localStorage:', error);
-    return null;
-  }
+    return this.cookieService.get(this.refreshTokenKey) || null;
   }
 
-  /**
-   * Checks if a refresh token exists.
-   * @returns True if refresh token exists, otherwise false.
-   */
-  hasRefreshToken(): boolean {
-    try{
-    const hasToken= !!localStorage.getItem(this.refreshTokenKey);
-    console.log('Has refresh token:', hasToken); 
-    return hasToken;
-  }    catch (error) {
-    console.error('Error checking refresh token existence:', error);
-    return false;
-  }
-  }
-  /**
-   * Removes both the access and refresh tokens from localStorage.
-   */
-  removeTokens(): void {
-    try{
-    console.log('Removing tokens from localStorage.');
-    localStorage.removeItem(this.accessTokenKey);
-    localStorage.removeItem(this.refreshTokenKey);
-  } catch (error) {
-    console.error('Error removing tokens from localStorage:', error);
+  clearTokens(): void {
+    this.cookieService.delete(this.accessTokenKey, '/');
+    this.cookieService.delete(this.refreshTokenKey, '/');
+ 
   }
 
-}
 }
