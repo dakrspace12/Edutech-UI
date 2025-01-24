@@ -42,7 +42,6 @@ export class AdminNavbarComponent {
 
   ngOnInit() {
     this.userId = this.authService.getId();
-    console.log('Decoded User ID:', this.userId);
 
     if(this.userId){
       this.getUserDetails(this.userId);
@@ -50,39 +49,32 @@ export class AdminNavbarComponent {
   }
 
 
-  getUserDetails(userId: string): void {
-    const token = this.tokenService.getAccessToken();
-    console.log('Access Token:', token);
-  
-    if (!token) {
-      console.error('No access token found!');
-      alert('You must be logged in to view user details.');
-      return; 
-    }
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
- 
-    const url = `http://localhost:8080/api/v1/users/${userId}`;
-    this.http.get<any>(url, { headers }).subscribe(
-      (response) => {
-        if (response && response.data) {
-        const userData = response.data;
+  getUserDetails(userId: string): void {const headers = new HttpHeaders().set('Authorization', `Bearer ${this.tokenService}`);
+
+  const url = `http://localhost:8080/api/v1/admin/users/${userId}`;
+  this.http.get<any>(url, { headers }).subscribe( 
+    (response) => {
+      if (response) {
+        const userData = response;
         this.firstNameInitial = userData.firstName ? userData.firstName.charAt(0).toUpperCase() : 'N';
         this.lastNameInitial = userData.lastName ? userData.lastName.charAt(0).toUpperCase() : 'N';
+  
+  
       } else {
         console.error('User data is not available in the response');
         alert('Failed to retrieve user data. Please try again later.');
       }
-      },
-      (error) => {
-        console.error('Error fetching user details:', error);
-        if (error.status === 401) {
-          alert('Unauthorized access. Please log in again.');
-        } else if (error.status === 500) {
-          alert('Server error. Please try again later.');
-        } else {
+    },
+    (error) => {
+      console.error('Error fetching user details:', error);
+      if (error.status === 401) {
+        alert('Unauthorized access. Please log in again.');
+      } else if (error.status === 500) {
+        alert('Server error. Please try again later.');
+      } else {
         alert('Failed to fetch user details. Please try again later.');
       }
     }
-    );
+  );
   }
 }

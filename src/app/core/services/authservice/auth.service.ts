@@ -60,7 +60,7 @@ export class AuthService {
    * Logs in the user, stores the tokens, and returns the server response.
    * @param user - User credentials (email and password).
    * @returns Observable of response with tokens.
-   */
+   */ 
   login(user: { email: string; password: string }): Observable<any> {
     const loginData = {
       email: user.email,
@@ -73,7 +73,8 @@ export class AuthService {
       .pipe(
         map((response) => {
           this.tokenService.storeTokens(response.accessToken, response.refreshToken);
-          this.navigateBasedOnRole = (response.data?.role);
+          const role = response?.data?.role;
+          this.navigateBasedOnRole = (role);
           return response;
         }),
         catchError(this.handleError)
