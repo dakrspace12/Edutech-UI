@@ -34,7 +34,7 @@ export class AuthService {
         return null;
       }
     }
-    console.warn('No token found in localStorage');
+    console.warn('No token found in cookies');
     return null;
   }
   /**
@@ -73,7 +73,19 @@ export class AuthService {
       .pipe(
         map((response) => {
           this.tokenService.storeTokens(response.accessToken, response.refreshToken);
-          const role = response.data?.role;
+          this.navigateBasedOnRole = (response.data?.role);
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Navigates based on the user role.
+   * @param role - The user's role.
+   */
+  private navigateBasedOnRole(role: string | undefined): void {
+          
           switch (role) {
             case 'ROLE_ADMIN':
               this.router.navigate(['/admin-layout/admin-dashboard']);
@@ -88,10 +100,7 @@ export class AuthService {
               this.router.navigate(['/login']);
               break;
           }
-          return response;
-        }),
-        catchError(this.handleError)
-      );
+         
   }
 
   /**
@@ -133,7 +142,7 @@ export class AuthService {
         const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
         if (decodedToken.exp < currentTime) {
           console.error('Access token has expired');
-          this.tokenService.removeTokens(); // Optionally remove expired token
+          this.tokenService.clearTokens(); // Optionally remove expired token
           return null; // Token has expired, return null
         }
       } catch (error) {
@@ -145,11 +154,11 @@ export class AuthService {
   }
 
   /**
-   * Checks if a refresh token exists in localStorage.
+   * Checks if a refresh token exists in cookies.
    * @returns True if refresh token exists, otherwise false.
    */
   hasRefreshToken(): boolean {
-    return this.tokenService.hasRefreshToken();
+    return !!this.tokenService.getRefreshToken();
   }
     /**
    * Retrieves the user role from localStorage.
@@ -173,7 +182,7 @@ export class AuthService {
    * Logs out the user by clearing tokens and redirecting to the login page.
    */
   logout(): void {
-    this.tokenService.removeTokens();
+    this.tokenService.clearTokens();
     this.router.navigate(['/login']);
   }
 
