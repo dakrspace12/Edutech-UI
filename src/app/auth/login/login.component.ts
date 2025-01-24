@@ -62,12 +62,7 @@ export class LoginComponent {
   
       this.authService.login(userData).subscribe(
         (response: any) => {
-          console.log('User logged in successfully:', response);
-  
           const {role, accessToken,refreshToken }= response?.data || {};
-          console.log('Role received:', role);
-          console.log('Access Token:', accessToken);
-          console.log('Refresh Token:', refreshToken);
   
           if (!role) {
             alert('Login successful, but no role assigned. Please contact support.');
@@ -79,7 +74,6 @@ export class LoginComponent {
             return;
           }
           this.tokenService.storeTokens(accessToken, refreshToken);
-          console.log('Tokens stored in cookies.');
           this.navigateBasedOnRole(role);
         },
         (error: HttpErrorResponse) => {
@@ -122,7 +116,6 @@ export class LoginComponent {
     this.dialog.open(ForgotPasswordPopupComponent);
   }
 
-  // Handle password visibility toggle
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
@@ -145,7 +138,7 @@ export class LoginComponent {
     this.router.navigate(['/register']);
   }
 
-  navigateBack() {
+  navigateBack():void {
     this.router.navigate(['/register']);
   }
 }

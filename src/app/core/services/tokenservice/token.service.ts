@@ -18,15 +18,14 @@ export class TokenService {
       expires: number;
     } = {
       path: '/',
-      secure: true, // Requires HTTPS
-      sameSite: 'Strict', // Correctly using string value 'Strict'
-      expires: 1, // Set expiration in days (adjust as needed)
+      secure: true,
+      sameSite: 'Strict',
+      expires: 1,
     };
 
   
     this.cookieService.set(this.accessTokenKey, accessToken, options);
     this.cookieService.set(this.refreshTokenKey, refreshToken,options);
-    console.log('Tokens stored successfully.');
    
   }
 

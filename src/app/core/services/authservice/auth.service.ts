@@ -73,7 +73,8 @@ export class AuthService {
       .pipe(
         map((response) => {
           this.tokenService.storeTokens(response.accessToken, response.refreshToken);
-          this.navigateBasedOnRole = (response.data?.role);
+          const role = response?.data?.role;
+          this.navigateBasedOnRole = (role);
           return response;
         }),
         catchError(this.handleError)
