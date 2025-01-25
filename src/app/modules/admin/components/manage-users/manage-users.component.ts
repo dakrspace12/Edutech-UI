@@ -70,7 +70,7 @@ export class ManageUsersComponent implements OnInit {
           alert('Server error. Please try again later.');
         } else {
           alert('Failed to fetch users. Please try again later.');
-        }
+        } 
       }
     );
   }

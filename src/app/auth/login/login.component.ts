@@ -140,7 +140,7 @@ export class LoginComponent {
       return hasMinLengthError && isTouched; 
   }
 
-  passwordAlphanumericError(): boolean {
+  passwordAlphanumericError(): boolean { 
   
     const hasPatternError = this.loginForm.get('password')?.hasError('pattern') ?? false
       const isTouched = this.loginForm.get('password')?.touched??false;

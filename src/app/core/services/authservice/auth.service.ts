@@ -184,7 +184,7 @@ export class AuthService {
    */
   logout(): void {
     this.tokenService.clearTokens();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']); 
   }
 
   /**
