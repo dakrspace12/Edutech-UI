@@ -17,14 +17,16 @@
           <th>User ID</th>
           <th>User Name</th>
           <th>Email</th>
+          <th>Mobile No</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of filteredUsers">
           <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
+          <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
+          <td>{{ user.mobileNo }}</td>
           <td>
             <button class="btn btn-secondary btn-sm" (click)="onView(user.id)">View</button>
             <button class="btn btn-success btn-sm" (click)="onUpdate(user.id)">Update</button>

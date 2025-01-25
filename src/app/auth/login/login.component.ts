@@ -12,6 +12,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 import { TokenService } from 'src/app/core/services/tokenservice/token.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent {
   hidePassword: boolean = true;
   loginForm: FormGroup;
   token: string | null = null;
+  errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +43,8 @@ export class LoginComponent {
     private http: HttpClient,
     public dialog: MatDialog,
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private snackBar: MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -102,14 +105,24 @@ export class LoginComponent {
           }
         }
         private handleLoginError(error: HttpErrorResponse) :void {
-          console.error('Error logging in:', error);
+          console.error(error);
   
           if (error.status === 401) {
-            alert('Login failed. Invalid username or password.');
+            this.snackBar.open('Invalid username or password.', 'Close', {
+              duration: 3000,
+              panelClass: ['error-snackbar'], 
+            });
+
           } else if (error.status >= 500) {
-            alert('Server error occurred. Please try again later.');
+            this.snackBar.open('Server error occurred. Please try again later.', 'Close', {
+              duration: 3000,
+              panelClass: ['error-snackbar'],
+            });
           } else {
-            alert(`Login failed. Error: ${error.message}`);
+            this.snackBar.open(`${error.message}`, 'Close', {
+              duration: 3000,
+              panelClass: ['error-snackbar'],
+            });
           }
         }
   ForgotPassword(): void {
@@ -139,6 +152,6 @@ export class LoginComponent {
   }
 
   navigateBack():void {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/login']);
   }
 }

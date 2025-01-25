@@ -74,7 +74,7 @@ export class AuthService {
         map((response) => {
           this.tokenService.storeTokens(response.accessToken, response.refreshToken);
           const role = response?.data?.role;
-          this.navigateBasedOnRole = (role);
+          this.navigateBasedOnRole(role);
           return response;
         }),
         catchError(this.handleError)
@@ -193,15 +193,17 @@ export class AuthService {
    * @returns Observable that throws an error with a user-friendly message.
    */
   public handleError(error: HttpErrorResponse): Observable<never> {
-    console.error('HTTP Error:', error); // Log the error for debugging purposes
+    console.error('HTTP Error:', error);
     let errorMessage = 'An unknown error occurred';
      if (error.error instanceof ErrorEvent){
       errorMessage = `Client-side Error: ${error.error.message}` ;
     } else {
       errorMessage = `Server-side Error: ${error.status} - ${error.message}`;
-      if (error.status === 401) {
-        console.warn('Unauthorized: Invalid or expired token');
-        this.logout();  
+      if (error.status === 401 && error.error?.message) {
+       errorMessage = `${error.error.message}`;
+      } else if (error.status === 500) {
+        errorMessage = 'Server error occurred. Please try again later.';
+   
       }
     }
     return throwError(() => new Error(errorMessage));
