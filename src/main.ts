@@ -17,6 +17,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor])),
-    importProvidersFrom(BrowserAnimationsModule), provideAnimationsAsync(), provideCharts(withDefaultRegisterables()),
+    importProvidersFrom(BrowserAnimationsModule), provideAnimationsAsync(), provideCharts(withDefaultRegisterables()), provideAnimationsAsync(),
   ],
 }).catch(err => console.error(err));
+   
