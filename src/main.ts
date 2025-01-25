@@ -20,3 +20,4 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserAnimationsModule), provideAnimationsAsync(), provideCharts(withDefaultRegisterables()), provideAnimationsAsync(),
   ],
 }).catch(err => console.error(err));
+   

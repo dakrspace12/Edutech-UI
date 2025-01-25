@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-admin-pichart',
   standalone: true,
   imports: [BaseChartDirective],
-  templateUrl: './admin-pichart.component.html',
+  templateUrl: './admin-pichart.component.html', 
   styleUrl: './admin-pichart.component.scss'
 })
 export class AdminPichartComponent {
@@ -19,7 +19,7 @@ export class AdminPichartComponent {
     }]
   };
   isLoading: boolean = true;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {} 
 
   ngOnInit() {
     this.fetchUserCounts();
