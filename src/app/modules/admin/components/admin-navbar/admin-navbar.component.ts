@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
-import { TokenService } from 'src/app/core/services/tokenservice/token.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -24,8 +23,7 @@ export class AdminNavbarComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private http: HttpClient,
-    private tokenService: TokenService
+    private http: HttpClient
   ) {}
 
   @Output() porfileClicked = new EventEmitter<void>();
@@ -50,14 +48,13 @@ export class AdminNavbarComponent {
 
 
   getUserDetails(userId: string): void {
-    const token = this.tokenService.getAccessToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-  const url = `http://localhost:8080/api/v1/admin/users/${userId}`;
-  this.http.get<any>(url, { headers }).subscribe( 
+
+  const url = `http://localhost:8080/api/v1/users/${userId}`;
+  this.http.get<any>(url).subscribe( 
     (response) => {
       if (response) {
-        const userData = response;
+        const userData = response.data;
         this.firstNameInitial = userData.firstName ? userData.firstName.charAt(0).toUpperCase() : 'N';
         this.lastNameInitial = userData.lastName ? userData.lastName.charAt(0).toUpperCase() : 'N';
   

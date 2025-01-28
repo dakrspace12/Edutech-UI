@@ -6,12 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { environment } from 'src/environments/environment'; // Import the environment file
+import { environment } from 'src/environments/environment';
 import { CommonModule, Location } from '@angular/common';
-
-// Custom password match validator
 import { passwordMatchValidator } from './password-match.validator';
-import { TokenService } from 'src/app/core/services/tokenservice/token.service'; // TokenService to manage JWT
+import { TokenService } from 'src/app/core/services/tokenservice/token.service';
 
 @Component({
   selector: 'app-register',
@@ -37,15 +35,15 @@ export class RegisterComponent {
     private router: Router,
     private http: HttpClient,
     private location: Location,
-    private tokenService: TokenService // TokenService for managing JWT
+    private tokenService: TokenService
   ) {
     this.registerForm = this.fb.group(
       {
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        username: ['', [Validators.required, Validators.minLength(3)]], // Updated field to "username"
+        username: ['', [Validators.required, Validators.minLength(3)]], 
         email: ['', [Validators.required, Validators.email]],
-        mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Validation for 10-digit mobile numbers
+        mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
         password: [
           '',
           [
@@ -56,7 +54,7 @@ export class RegisterComponent {
         ],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       },
-      { validators: passwordMatchValidator } // Custom validator for password mismatch
+      { validators: passwordMatchValidator } 
     );
   }
 
@@ -66,17 +64,17 @@ export class RegisterComponent {
   onRegister() {
     if (this.registerForm.valid && !this.registerForm.hasError('passwordMismatch')) {
       const userData = this.registerForm.value;
-
-      // API call for user registration
+      const rememberMe = this.registerForm.get('rememberMe')?.value ?? false;
+ 
       this.http.post(`${environment.apiUrl}/register`, userData).subscribe(
         (response: any) => {
           alert('User registered successfully');
           console.log('User registered successfully', response);
 
-          // Save the received JWT to local storage using TokenService
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
 
-          // Navigate to a protected page (e.g., dashboard) after successful registration
+          this.tokenService.storeTokens(response.accessToken, response.refreshToken, rememberMe);
+
+      
           this.router.navigate(['/dashboard']);
         },
         (error) => {
@@ -85,11 +83,11 @@ export class RegisterComponent {
         }
       );
     } else {
-      this.registerForm.markAllAsTouched(); // Highlight validation errors if form is invalid
+      this.registerForm.markAllAsTouched(); 
     }
   }
 
-  // Handle password visibility toggle
+ 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
@@ -98,7 +96,7 @@ export class RegisterComponent {
     this.hideConfirmPassword = !this.hideConfirmPassword;
   }
 
-  // Password length and pattern error checks
+ 
   passwordLengthError() {
     return (
       this.registerForm.get('password')?.hasError('minlength') &&
@@ -113,7 +111,7 @@ export class RegisterComponent {
     );
   }
 
-  // Password mismatch error
+
   mismatchError() {
     return (
       this.registerForm.get('confirmPassword')?.touched &&
@@ -121,13 +119,13 @@ export class RegisterComponent {
     );
   }
 
-  // Navigate to the login page
+
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
 
-  // Navigate back to the previous page
+  
   navigateBack() {
-    this.location.back(); // This will take the user to the previous page in history
+    this.location.back();
   }
 }
