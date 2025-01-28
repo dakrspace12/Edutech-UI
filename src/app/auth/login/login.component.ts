@@ -98,7 +98,7 @@ export class LoginComponent {
             this.router.navigate(['/layout/dashboard']);
               break;
             case 'ROLE_INSTRUCTOR':
-            this.router.navigate(['/instructor-dashboard']);
+            this.router.navigate(['/instructor-layout/instructor-dashboard']);
               break;
             default:
               alert('Unrecognized role or login error.');

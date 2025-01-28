@@ -100,7 +100,7 @@ export class AuthService {
               this.router.navigate(['/layout/dashboard']);
               break;
             case 'ROLE_INSTRUCTOR':
-              this.router.navigate(['/instructor-dashboard']);
+              this.router.navigate(['/instructor-layout/instructor-dashboard']);
               break;
             default:
               this.router.navigate(['/login']);
