@@ -1,8 +1,7 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Output, EventEmitter} from '@angular/core';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { RouterModule,Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 

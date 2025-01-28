@@ -15,8 +15,7 @@ interface User {
   username: string;
   email: string;
   mobileNo: string;
-  roles: Role[];
-  userId: number;
+  roles: string[];
 }
 
 @Component({
@@ -48,13 +47,14 @@ export class ManageUsersComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = 'http://localhost:8080/api/v1/admin/users';
+    const url = 'http://localhost:8080/api/v1/users';
 
-    this.http.get<User[]>(url, { headers }).subscribe(
+    this.http.get<any>(url, { headers }).subscribe(
       (response) => {
-        if (response && Array.isArray(response)) {
-          this.users = response.filter(user => 
-            user.roles.some(role => role.name === 'ROLE_USER')
+        if (response &&  response.data && Array.isArray(response.data)) {
+          this.users = response.data.filter((user:User) => {
+            return user.roles && user.roles.includes('ROLE_USER');
+          }
         );
           this.filteredUsers = [...this.users];
         } else {
@@ -77,14 +77,16 @@ export class ManageUsersComponent implements OnInit {
 
   onSearch() : void{
     this.filteredUsers = this.users.filter(
-      (user) =>
+      (user:User) =>{
+        return(
         user.id.toString().includes(this.searchTerm) ||
-        user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(this.searchTerm.toLowerCase())||
-        user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.mobileNo.includes(this.searchTerm)
+        user.firstName?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.lastName?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.username?.toLowerCase().includes(this.searchTerm.toLowerCase())||
+        user.email?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.mobileNo?.includes(this.searchTerm)
     );
+  });
   }
 
   onView(userId: number):void {
@@ -103,7 +105,7 @@ export class ManageUsersComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `http://localhost:8080/api/v1/admin/users/${userId}`;
+    const url = `http://localhost:8080/api/v1/users/${userId}`;
     this.http.delete(url, { headers }).subscribe(
       () => {
     this.users = this.users.filter(user => user.id !== userId);

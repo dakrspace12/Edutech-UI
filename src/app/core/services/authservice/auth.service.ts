@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { TokenService } from '../tokenservice/token.service';
 import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private cookieService: CookieService
   ) {}
   /**
    * Retrieves the user ID from the access token.
@@ -49,7 +51,6 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
           return response;
         }),
         catchError(this.handleError)
@@ -72,8 +73,12 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
+          const userData = response.data;
+          this.cookieService.set(userData.accessToken, userData.refreshToken, userData.rememberMe);
           const role = response?.data?.role;
+          if (role) {
+            localStorage.setItem('userRole', role);
+          }
           this.navigateBasedOnRole(role);
           return response;
         }),
@@ -121,7 +126,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken); // Update tokens
+          this.tokenService.storeTokens(response.accessToken, response.refreshToken, response.rememberMe);
           return response;
         }),
         catchError((error) => {
@@ -140,11 +145,11 @@ export class AuthService {
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
-        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+        const currentTime = Math.floor(Date.now() / 1000); 
         if (decodedToken.exp < currentTime) {
           console.error('Access token has expired');
-          this.tokenService.clearTokens(); // Optionally remove expired token
-          return null; // Token has expired, return null
+          this.tokenService.clearTokens();
+          return null; 
         }
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -162,20 +167,12 @@ export class AuthService {
     return !!this.tokenService.getRefreshToken();
   }
     /**
-   * Retrieves the user role from localStorage.
-   * @returns The role of the user, or an empty string if not found.
-   */
-  getUserRole(): string {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user?.role ?? ''; 
-  }
-  /**
    * Checks if the user is authenticated based on the presence of a valid access token.
    * @returns True if the user is authenticated, otherwise false.
    */
 
   isAuthenticated(): boolean {
-    return !!this.getAccessToken(); // Check if token exists and is valid
+    return !!this.getAccessToken(); 
   }
   
 
