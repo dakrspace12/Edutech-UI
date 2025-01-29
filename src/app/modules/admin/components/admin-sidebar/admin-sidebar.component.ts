@@ -40,7 +40,7 @@ export class AdminSidebarComponent {
     const url = `http://localhost:8080/api/v1/users/${userId}`;
     this.http.get<any>(url).subscribe(
       (response) => {  
-        const userData = response;
+        const userData = response.data;
         this.firstName = userData.firstName;
         this.lastName = userData.lastName;
       },

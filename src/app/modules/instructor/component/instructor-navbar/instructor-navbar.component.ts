@@ -42,7 +42,6 @@ export class InstructorNavbarComponent {
   
     ngOnInit() {
       this.userId = this.authService.getId();
-      console.log('Decoded User ID:', this.userId);
   
       if(this.userId){
         this.getUserDetails(this.userId);
@@ -54,13 +53,25 @@ export class InstructorNavbarComponent {
       const url = `http://localhost:8080/api/v1/users/${userId}`;
       this.http.get<any>(url).subscribe(
         (response) => {
+          if (response) {
           const userData = response.data;
           this.firstNameInitial = userData.firstName ? userData.firstName.charAt(0).toUpperCase() : 'N';
           this.lastNameInitial = userData.lastName ? userData.lastName.charAt(0).toUpperCase() : 'N';
-        },
-        (error) => {
-          console.error('Error fetching user details:', error);
+        } else {
+          console.error('User data is not available in the response');
+          alert('Failed to retrieve user data. Please try again later.');
         }
-      );
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+        if (error.status === 401) {
+          alert('Unauthorized access. Please log in again.');
+        } else if (error.status === 500) {
+          alert('Server error. Please try again later.');
+        } else {
+          alert('Failed to fetch user details. Please try again later.');
+        }
+      }
+    );
     }
-}
+  } 

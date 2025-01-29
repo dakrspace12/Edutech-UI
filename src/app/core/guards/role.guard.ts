@@ -15,7 +15,11 @@ export class RoleGuard implements CanActivate {
   ): boolean {
     const requiredRoles = next.data['roles'] || [];
     const userRole = this.tokenService.getUserRole(); 
+    console.log('Required roles:', requiredRoles);
+    console.log('User role:', userRole);  // Add this line
+
     if (!userRole || !requiredRoles.includes(userRole)) {
+      console.error('Access denied. User role:', userRole, 'Required roles:', requiredRoles);
       this.router.navigate(['/access-denied']);
       return false;
     }

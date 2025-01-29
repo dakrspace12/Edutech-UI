@@ -90,6 +90,7 @@ export class TokenService {
 
     try {
       const decodedToken: any = jwtDecode(token);
+      console.log('Decoded token:', decodedToken);
       return decodedToken?.roles && Array.isArray(decodedToken.roles) ? decodedToken.roles[0] : null;
     } catch (error) {
       console.error('Error decoding token', error);
