@@ -1,10 +1,23 @@
-<div class="container mt-4">
+<div class="users-container">
     <div class="mt-4 search-bar">
-      <div class="form-group d-flex align-items-center">
+      <div class="form-group d-flex align-items-center gap-4">
+        <div class="custom-dropdown">
+          <div class="select-wrapper">
+            <select class="bg-white" [(ngModel)]="searchFilter" (change)="updatePlaceholder()">
+              <option value="All">All</option>
+              <option value="id">Id</option>
+              <option value="name">Name</option>
+              <option value="username">Username</option>
+              <option value="email">Email</option>
+              <option value="mobile">Mobile</option> 
+            </select>
+            <span class="arrow"></span>
+          </div>
+        </div>
         <input
           type="text"
-          class="form-control"
-          placeholder="Search by User ID or Name"
+          class="form-control w-200"
+          [placeholder]="searchPlaceholder"
           [(ngModel)]="searchTerm"
         />
         <button class="btn btn-primary ml-2" (click)="onSearch()">Search</button>

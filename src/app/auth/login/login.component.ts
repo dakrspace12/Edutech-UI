@@ -56,6 +56,7 @@ export class LoginComponent {
           Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$'),
         ],
       ],
+      rememberMe: [false]
     });
   }
 
@@ -76,7 +77,8 @@ export class LoginComponent {
             alert('Access token or refresh token are missing. Please try again.');
             return;
           }
-          this.tokenService.storeTokens(accessToken, refreshToken);
+          const rememberMe = userData.rememberMe;
+          this.tokenService.storeTokens(accessToken, refreshToken, rememberMe);
           this.navigateBasedOnRole(role);
         },
         (error: HttpErrorResponse) => {
@@ -96,7 +98,7 @@ export class LoginComponent {
             this.router.navigate(['/layout/dashboard']);
               break;
             case 'ROLE_INSTRUCTOR':
-            this.router.navigate(['/instructor-dashboard']);
+            this.router.navigate(['/instructor-layout/instructor-dashboard']);
               break;
             default:
               alert('Unrecognized role or login error.');

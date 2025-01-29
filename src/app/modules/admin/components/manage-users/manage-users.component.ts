@@ -15,8 +15,7 @@ interface User {
   username: string;
   email: string;
   mobileNo: string;
-  roles: Role[];
-  userId: number;
+  roles: string[];
 }
 
 @Component({
@@ -27,6 +26,8 @@ interface User {
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit {
+  searchFilter: string = 'All'; 
+  searchPlaceholder: string = 'Get All User Data';
   searchTerm: string = '';
   users: User[] = []; 
   filteredUsers: User[] = []; 
@@ -34,7 +35,9 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService
-  ) {}
+  ) {
+    this.filteredUsers = [...this.users];
+  }
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -48,13 +51,14 @@ export class ManageUsersComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = 'http://localhost:8080/api/v1/admin/users';
+    const url = 'http://localhost:8080/api/v1/users';
 
-    this.http.get<User[]>(url, { headers }).subscribe(
+    this.http.get<any>(url, { headers }).subscribe(
       (response) => {
-        if (response && Array.isArray(response)) {
-          this.users = response.filter(user => 
-            user.roles.some(role => role.name === 'ROLE_USER')
+        if (response &&  response.data && Array.isArray(response.data)) {
+          this.users = response.data.filter((user:User) => {
+            return user.roles && user.roles.includes('ROLE_USER');
+          }
         );
           this.filteredUsers = [...this.users];
         } else {
@@ -75,16 +79,68 @@ export class ManageUsersComponent implements OnInit {
     );
   }
 
+  updatePlaceholder(){
+    switch (this.searchFilter) {
+      case 'All':
+        this.searchPlaceholder = 'Get All User Data';
+        break;
+      case 'name':
+        this.searchPlaceholder = 'Search by Name';
+        break;
+      case 'id':
+        this.searchPlaceholder = 'Search by ID';
+        break;
+      case 'username':
+        this.searchPlaceholder = 'Search by Username';
+        break;
+      case 'email':
+        this.searchPlaceholder = 'Search by Email';
+        break;
+      case 'mobile':
+        this.searchPlaceholder = 'Search by Mobile';
+        break;
+      default:
+        this.searchPlaceholder = '';
+    }
+  }
   onSearch() : void{
-    this.filteredUsers = this.users.filter(
-      (user) =>
-        user.id.toString().includes(this.searchTerm) ||
-        user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(this.searchTerm.toLowerCase())||
-        user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.mobileNo.includes(this.searchTerm)
-    );
+    const searchTermLower = this.searchTerm.toLowerCase();
+    switch (this.searchFilter) {
+      case 'All':
+        this.filteredUsers = [...this.users];
+        break;
+      case 'name':
+        this.filteredUsers = this.users.filter(user =>
+          user.username.toLowerCase().includes(searchTermLower)
+        );
+        break;
+      case 'id':
+        this.filteredUsers = this.users.filter(user =>
+          user.id.toString().includes(this.searchTerm)
+        );
+        break;
+      case 'username':
+        this.filteredUsers = this.users.filter(user =>
+          user.username.toLowerCase().includes(searchTermLower)
+        );
+        break;
+      case 'email':
+        this.filteredUsers = this.users.filter(user=>
+          user.email.toLowerCase().includes(this.searchTerm)
+        );
+        break;
+      case 'mobile':
+        this.filteredUsers = this.users.filter(user =>
+          user.mobileNo.toLowerCase().includes(this.searchTerm)
+        );
+        break;
+      default:
+        this.filteredUsers = [...this.users];
+    }
+    if(this.filteredUsers.length === 0){
+      alert('User not found');
+      this.filteredUsers = [...this.users];
+    }
   }
 
   onView(userId: number):void {
@@ -103,7 +159,7 @@ export class ManageUsersComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `http://localhost:8080/api/v1/admin/users/${userId}`;
+    const url = `http://localhost:8080/api/v1/users/${userId}`;
     this.http.delete(url, { headers }).subscribe(
       () => {
     this.users = this.users.filter(user => user.id !== userId);

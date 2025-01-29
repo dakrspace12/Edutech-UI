@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 import { FooterSectionComponent } from './shared/components/footer-section/footer-section.component';
 import { LoginMainComponent } from './auth/login-main/login-main.component';
 import { ForgotPasswordPopupComponent } from './auth/forgot-password-popup/forgot-password-popup.component';
@@ -24,6 +24,9 @@ import { ManageUsersComponent } from './modules/admin/components/manage-users/ma
 import { InstructorLayoutComponent } from './shared/components/instructor-layout/instructor-layout.component';
 import { AccountSettingsComponent } from './modules/admin/components/account-settings/account-settings.component';
 import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/admin-sidebar.component';
+import { RoleGuard } from './core/guards/role.guard';
+
+
 
 
 export const routes: Routes = [
@@ -37,7 +40,7 @@ export const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: HomeSectionComponent },
       { path: 'navbar', component: NavbarComponent },
@@ -46,7 +49,7 @@ export const routes: Routes = [
       { 
         path: 'my-learning',
         component: MyLearningComponent,
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
         children: [
           { path: '', component: StudentsAllCoursesComponent},
           { path: 'my-lists', component: StudentsMyListsComponent},
@@ -59,7 +62,8 @@ export const routes: Routes = [
   },
   {path:'admin-layout', 
     component:AdminLayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard,RoleGuard],
+    data: { roles: ['ROLE_ADMIN'] },
     children: [
     { path:'admin-dashboard', component:AdminDashboardComponent },
     { path: 'manage-courses', component: ManageCoursesComponent },
@@ -69,8 +73,13 @@ export const routes: Routes = [
   
   ]},
   {
-    path: 'instructor-Layot', 
+    path: 'instructor-Layout', 
     component: InstructorLayoutComponent,
+    canActivate: [authGuard, RoleGuard],
+    data: { roles: ['ROLE_INSTRUCTOR'] }, 
+    children: [
+   
+    ]
   },
   { path: '**', redirectTo: '/login' },
 ];
