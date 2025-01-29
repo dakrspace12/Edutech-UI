@@ -22,7 +22,8 @@ import { ManageCoursesComponent } from './modules/admin/components/manage-course
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
 import { InstructorLayoutComponent } from './shared/components/instructor-layout/instructor-layout.component';
-
+import { AccountSettingsComponent } from './modules/admin/components/account-settings/account-settings.component';
+import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/admin-sidebar.component';
 
 
 export const routes: Routes = [
@@ -63,6 +64,8 @@ export const routes: Routes = [
     { path:'admin-dashboard', component:AdminDashboardComponent },
     { path: 'manage-courses', component: ManageCoursesComponent },
     { path: 'manage-users', component: ManageUsersComponent },
+    { path: 'account-settings', component: AccountSettingsComponent },
+    { path: 'account-side', component: AdminSidebarComponent },
   
   ]},
   {

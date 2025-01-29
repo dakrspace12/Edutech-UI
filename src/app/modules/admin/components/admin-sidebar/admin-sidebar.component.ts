@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 import { TokenService } from 'src/app/core/services/tokenservice/token.service';
 
@@ -10,6 +11,7 @@ import { TokenService } from 'src/app/core/services/tokenservice/token.service';
   standalone: true,
   imports: [
     MatIconModule,
+    RouterModule,
     CommonModule,
   ],
   templateUrl: './admin-sidebar.component.html',
