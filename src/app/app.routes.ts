@@ -25,6 +25,7 @@ import { InstructorLayoutComponent } from './shared/components/instructor-layout
 import { AccountSettingsComponent } from './modules/admin/components/account-settings/account-settings.component';
 import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/admin-sidebar.component';
 import { RoleGuard } from './core/guards/role.guard';
+import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
 
 
 
@@ -78,7 +79,7 @@ export const routes: Routes = [
     canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_INSTRUCTOR'] }, 
     children: [
-   
+   {path:'instructor-dashboard', component: InstructorDashboardComponent},
     ]
   },
   { path: '**', redirectTo: '/login' },
