@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/core/services/authservice/auth.service';
   standalone: true,
   imports: [
     MatIconModule,
+    RouterModule,
     CommonModule,
   ],
   templateUrl: './admin-sidebar.component.html',
