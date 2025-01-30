@@ -7,19 +7,18 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { TokenService } from '../tokenservice/token.service';
 import { jwtDecode } from 'jwt-decode';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+ 
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private tokenService: TokenService,
-    private cookieService: CookieService
+    private tokenService: TokenService
   ) {}
   /**
    * Retrieves the user ID from the access token.
@@ -62,51 +61,8 @@ export class AuthService {
    * @param user - User credentials (email and password).
    * @returns Observable of response with tokens.
    */ 
-  login(user: { email: string; password: string }): Observable<any> {
-    const loginData = {
-      email: user.email,
-      password: user.password,
-    };
-    return this.http
-      .post<any>(`${this.apiUrl}/login`, loginData, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      })
-      .pipe(
-        map((response) => {
-          const userData = response.data;
-          this.cookieService.set(userData.accessToken, userData.refreshToken, userData.rememberMe);
-          const role = response?.data?.role;
-          if (role) {
-            localStorage.setItem('userRole', role);
-          }
-          this.navigateBasedOnRole(role);
-          return response;
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  /**
-   * Navigates based on the user role.
-   * @param role - The user's role.
-   */
-  private navigateBasedOnRole(role: string | undefined): void {
-          
-          switch (role) {
-            case 'ROLE_ADMIN':
-              this.router.navigate(['/admin-layout/admin-dashboard']);
-              break;
-            case 'ROLE_USER':
-              this.router.navigate(['/layout/dashboard']);
-              break;
-            case 'ROLE_INSTRUCTOR':
-              this.router.navigate(['/instructor-layout/instructor-dashboard']);
-              break;
-            default:
-              this.router.navigate(['/login']);
-              break;
-          }
-         
+  login(credentials: { username: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
   /**
@@ -126,7 +82,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken, response.rememberMe);
+          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
           return response;
         }),
         catchError((error) => {
@@ -158,7 +114,14 @@ export class AuthService {
     }
     return token;
   }
-
+  /**
+   * Refreshes the access token using the refresh token.
+   * @returns Observable with the new tokens.
+   */
+  refreshToken(): Observable<any> {
+    const refreshToken = this.tokenService.getRefreshToken();
+    return this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken });
+  }
   /**
    * Checks if a refresh token exists in cookies.
    * @returns True if refresh token exists, otherwise false.
@@ -172,7 +135,7 @@ export class AuthService {
    */
 
   isAuthenticated(): boolean {
-    return !!this.getAccessToken(); 
+    return !!this.tokenService.getAccessToken(); 
   }
   
 

@@ -9,10 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 import { TokenService } from 'src/app/core/services/tokenservice/token.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ForgotPasswordPopupComponent } from '../forgot-password-popup/forgot-password-popup.component';
+import { Location } from '@angular/common';
+import { Role } from 'src/app/role/role.enum';
 
 @Component({
   selector: 'app-login',
@@ -20,31 +22,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
-    ReactiveFormsModule, 
-    RouterModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatIconModule, 
-    MatButtonModule, 
+    ReactiveFormsModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     CommonModule,
     MatDialogModule,
   ],
 })
 export class LoginComponent {
-  hideConfirmPassword: boolean = true;
   hidePassword: boolean = true;
   loginForm: FormGroup;
-  token: string | null = null;
   errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient,
     public dialog: MatDialog,
     private authService: AuthService,
     private tokenService: TokenService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -52,81 +52,91 @@ export class LoginComponent {
         '',
         [
           Validators.required,
-          Validators.minLength(6),
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$'),
+          Validators.minLength(6), // Update length to 6 as per requirements
+          Validators.pattern('^[a-zA-Z0-9]*$'), // Alphanumeric only
         ],
       ],
-      rememberMe: [false]
+      rememberMe: [false],
     });
   }
 
   onLogin(): void {
     if (this.loginForm.valid) {
-      const userData = this.loginForm.value;
-  
-      this.authService.login(userData).subscribe(
-        (response: any) => {
-          const {role, accessToken,refreshToken }= response?.data || {};
-  
-          if (!role) {
-            alert('Login successful, but no role assigned. Please contact support.');
-            this.router.navigate(['/login']);
-            return;
-          }
-          if (!accessToken || !refreshToken) {
-            alert('Access token or refresh token are missing. Please try again.');
-            return;
-          }
-          const rememberMe = userData.rememberMe;
-          this.tokenService.storeTokens(accessToken, refreshToken, rememberMe);
-          this.navigateBasedOnRole(role);
-        },
-        (error: HttpErrorResponse) => {
-          this.handleLoginError(error);
+      const email = this.loginForm.get('email')?.value ?? '';
+      const password = this.loginForm.get('password')?.value ?? '';
+      const rememberMe = this.loginForm.get('rememberMe')?.value ?? false;
+
+      this.authService
+        .login({ username: email, password })
+        .subscribe({
+          next: (response) => {
+            this.tokenService.storeTokens(
+              response.data.accessToken,
+              response.data.refreshToken
+            );
+            const serverRole = response.data.role;
+            console.log(serverRole);
+            const role = this.tokenService.mapServerRoleToClientRole(serverRole);
+
+            if (role) {
+              if (role === Role.Admin) {
+                this.router.navigate(['/admin-layout/admin-dashboard']);
+              } else if (role === Role.Instructor) {
+                this.router.navigate(['/instructor-layout/instructor-dashboard']);
+              } else if (role === Role.User) {
+                this.router.navigate(['/layout/dashboard']);
+              } else {
+                console.warn('Unrecognized role:', role);
+                this.router.navigate(['/unauthorized']);
+              }
+            } else {
+              console.error('Invalid role value:', serverRole);
+              this.snackBar.open('Unauthorized access.', 'Close', {
+                duration: 3000,
+                panelClass: ['error-snackbar'],
+              });
+              this.router.navigate(['/login']);
+            }
+          },
+          error: (error: HttpErrorResponse) => this.handleLoginError(error),
+        });
+    } else {
+      this.snackBar.open(
+        'Please fill in all required fields correctly.',
+        'Close',
+        {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        }
+      );
+    }
+  }
+
+  private handleLoginError(error: HttpErrorResponse): void {
+    console.error(error);
+
+    if (error.status === 401) {
+      this.snackBar.open('Invalid username or password.', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+      });
+    } else if (error.status >= 500) {
+      this.snackBar.open(
+        'Server error occurred. Please try again later.',
+        'Close',
+        {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
         }
       );
     } else {
-      alert('Please fill in all required fields correctly.');
+      this.snackBar.open(`${error.message}`, 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+      });
     }
   }
-  private navigateBasedOnRole(role: string): void {
-          switch (role) {
-            case 'ROLE_ADMIN':
-            this.router.navigate(['/admin-layout/admin-dashboard']);
-              break;
-            case 'ROLE_USER':
-            this.router.navigate(['/layout/dashboard']);
-              break;
-            case 'ROLE_INSTRUCTOR':
-            this.router.navigate(['/instructor-layout/instructor-dashboard']);
-              break;
-            default:
-              alert('Unrecognized role or login error.');
-              this.router.navigate(['/login']);
-              break;
-          }
-        }
-        private handleLoginError(error: HttpErrorResponse) :void {
-          console.error(error);
-  
-          if (error.status === 401) {
-            this.snackBar.open('Invalid username or password.', 'Close', {
-              duration: 3000,
-              panelClass: ['error-snackbar'], 
-            });
 
-          } else if (error.status >= 500) {
-            this.snackBar.open('Server error occurred. Please try again later.', 'Close', {
-              duration: 3000,
-              panelClass: ['error-snackbar'],
-            });
-          } else {
-            this.snackBar.open(`${error.message}`, 'Close', {
-              duration: 3000,
-              panelClass: ['error-snackbar'],
-            });
-          }
-        }
   ForgotPassword(): void {
     this.dialog.open(ForgotPasswordPopupComponent);
   }
@@ -135,25 +145,25 @@ export class LoginComponent {
     this.hidePassword = !this.hidePassword;
   }
 
-  passwordLengthError() :boolean {
-    
-    const hasMinLengthError = this.loginForm.get('password')?.hasError('minlength') ??false
-      const isTouched = this.loginForm.get('password')?.touched??false;
-      return hasMinLengthError && isTouched; 
+  passwordLengthError(): boolean {
+    const hasMinLengthError =
+      this.loginForm.get('password')?.hasError('minlength') ?? false;
+    const isTouched = this.loginForm.get('password')?.touched ?? false;
+    return hasMinLengthError && isTouched;
   }
 
-  passwordAlphanumericError(): boolean { 
-  
-    const hasPatternError = this.loginForm.get('password')?.hasError('pattern') ?? false
-      const isTouched = this.loginForm.get('password')?.touched??false;
-      return hasPatternError && isTouched;
+  passwordAlphanumericError(): boolean {
+    const hasPatternError =
+      this.loginForm.get('password')?.hasError('pattern') ?? false;
+    const isTouched = this.loginForm.get('password')?.touched ?? false;
+    return hasPatternError && isTouched;
   }
 
-  navigateToRegister():void {
-    this.router.navigate(['/register']); 
+  navigateToRegister(): void {
+    this.router.navigate(['/register']);
   }
 
-  navigateBack():void {
-    this.router.navigate(['/login']);
+  navigateBack(): void {
+    this.location.back();
   }
 }

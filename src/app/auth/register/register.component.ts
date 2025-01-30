@@ -72,7 +72,7 @@ export class RegisterComponent {
           console.log('User registered successfully', response);
 
 
-          this.tokenService.storeTokens(response.accessToken, response.refreshToken, rememberMe);
+          this.tokenService.storeTokens(response.accessToken, response.refreshToken);
 
       
           this.router.navigate(['/dashboard']);
