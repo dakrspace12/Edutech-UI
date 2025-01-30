@@ -41,7 +41,8 @@ export const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, RoleGuard],
+    data: { roles: ['ROLE_USER'] },
     children: [
       { path: 'dashboard', component: HomeSectionComponent },
       { path: 'navbar', component: NavbarComponent },
@@ -74,7 +75,7 @@ export const routes: Routes = [
   
   ]},
   {
-    path: 'instructor-Layout', 
+    path: 'instructor-layout', 
     component: InstructorLayoutComponent,
     canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_INSTRUCTOR'] }, 
