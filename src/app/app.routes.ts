@@ -83,5 +83,5 @@ export const routes: Routes = [
    {path:'instructor-dashboard', component: InstructorDashboardComponent},
     ]
   },
-  { path: '**', redirectTo: '/login' },
+  { path: '**', redirectTo: '/login' }, 
 ];
