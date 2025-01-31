@@ -2,31 +2,34 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import {  RouterModule } from '@angular/router';
+
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
+
+
+
+
 
 @Component({
   selector: 'app-sidebar-component',
   standalone: true,
-  imports: [ MatIconModule,
-    CommonModule
-  ],
+  imports: [MatIconModule, 
+    CommonModule,
+    RouterModule],
   templateUrl: './sidebar-component.component.html',
-  styleUrl: './sidebar-component.component.scss'
+  styleUrl: './sidebar-component.component.scss',
 })
 export class SidebarComponentComponent {
-  userId: string | null = null
-  firstName: string | null = null
-  lastName: string | null = null
-  constructor(private authService: AuthService,
-    private http: HttpClient,
-  ) {}
+  userId: string | null = null;
+  firstName: string | null = null;
+  lastName: string | null = null;
+  constructor(private authService: AuthService, private http: HttpClient) {}
   @Input() isSidebarOpen = false;
- 
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
-  
+
   ngOnInit() {
     this.userId = this.authService.getId();
 
@@ -34,7 +37,6 @@ export class SidebarComponentComponent {
       this.getUserDetails(this.userId);
     }
   }
-
 
   getUserDetails(userId: string): void {
     const url = `http://localhost:8080/api/v1/users/${userId}`;

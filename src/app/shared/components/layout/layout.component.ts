@@ -20,6 +20,7 @@ import { SidebarComponentComponent } from 'src/app/modules/student/components/si
     FooterSectionComponent,
     NavbarComponent,
     SidebarComponentComponent,
+   
     ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'] 
