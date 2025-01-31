@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon'; // For icons in the tool
 import { FooterSectionComponent } from '../footer-section/footer-section.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponentComponent } from 'src/app/modules/student/components/sidebar-component/sidebar-component.component';
-import { AdminDashboardComponent } from 'src/app/modules/admin/admin-dashboard/admin-dashboard.component';
 
 @Component({
   selector: 'app-layout',
@@ -21,6 +20,7 @@ import { AdminDashboardComponent } from 'src/app/modules/admin/admin-dashboard/a
     FooterSectionComponent,
     NavbarComponent,
     SidebarComponentComponent,
+   
     ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'] 

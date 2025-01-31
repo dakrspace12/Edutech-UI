@@ -23,17 +23,19 @@ import { AdminLayoutComponent } from './shared/components/admin-layout/admin-lay
 import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
 import { InstructorLayoutComponent } from './shared/components/instructor-layout/instructor-layout.component';
 import { RoleGuard } from './core/guards/role.guard';
+import { MessagesComponent } from './modules/student/components/sidebar-component/messages/messages.component';
 
 
 
 export const routes: Routes = [
-  { path: 'cyber', component: FooterSectionComponent }, 
+  { path: 'cyber', component: FooterSectionComponent },
   { path: 'login-main', component: LoginMainComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordPopupComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: '', redirectTo: '/login-main', pathMatch: 'full' }, 
+  { path: '', redirectTo: '/login-main', pathMatch: 'full' },
+
   {
     path: 'layout',
     component: LayoutComponent,
@@ -41,40 +43,41 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: HomeSectionComponent },
       { path: 'navbar', component: NavbarComponent },
-      { path: 'courses', component: CourseEnrollmentComponent},
-      { path: 'courses/:id', component: CourseContentComponent},
-      { 
+      { path: 'courses', component: CourseEnrollmentComponent },
+      { path: 'courses/:id', component: CourseContentComponent },
+      {
         path: 'my-learning',
         component: MyLearningComponent,
         canActivate: [authGuard],
         children: [
-          { path: '', component: StudentsAllCoursesComponent},
-          { path: 'my-lists', component: StudentsMyListsComponent},
-          { path: 'wishlist', component: StudentsWishlistComponent},
-          { path: 'archived', component: StudentsArchivedComponent},
-          { path: 'learning-tools', component: StudentsLearningToolsComponent}
-        ]
-      }   
-    ]
+          { path: '', component: StudentsAllCoursesComponent },
+          { path: 'my-lists', component: StudentsMyListsComponent },
+          { path: 'wishlist', component: StudentsWishlistComponent },
+          { path: 'archived', component: StudentsArchivedComponent },
+          { path: 'learning-tools', component: StudentsLearningToolsComponent },
+        ],
+      },
+      { path: 'messagess', component: MessagesComponent },
+     
+    ],
   },
-  {path:'admin-layout', 
-    component:AdminLayoutComponent,
-    canActivate: [authGuard,RoleGuard],
+  {
+    path: 'admin-layout',
+    component: AdminLayoutComponent,
+    canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_ADMIN'] },
     children: [
-    { path:'admin-dashboard', component:AdminDashboardComponent },
-    { path: 'manage-courses', component: ManageCoursesComponent },
-    { path: 'manage-users', component: ManageUsersComponent },
-  
-  ]},
+      { path: 'admin-dashboard', component: AdminDashboardComponent },
+      { path: 'manage-courses', component: ManageCoursesComponent },
+      { path: 'manage-users', component: ManageUsersComponent },
+    ],
+  },
   {
-    path: 'instructor-Layout', 
+    path: 'instructor-Layout',
     component: InstructorLayoutComponent,
     canActivate: [authGuard, RoleGuard],
-    data: { roles: ['ROLE_INSTRUCTOR'] }, 
-    children: [
-   
-    ]
+    data: { roles: ['ROLE_INSTRUCTOR'] },
+    children: [],
   },
   { path: '**', redirectTo: '/login' },
 ];
