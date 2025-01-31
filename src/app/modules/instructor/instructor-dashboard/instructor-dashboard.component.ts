@@ -13,4 +13,4 @@ export class InstructorDashboardComponent implements OnInit {
     console.log('InstructorDashboardComponent initialized');
   }
 
-}
+} 

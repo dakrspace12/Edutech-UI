@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService { 
   private apiUrl = environment.apiUrl;
  
 
