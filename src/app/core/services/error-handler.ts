@@ -20,4 +20,4 @@ export function handleError(error: HttpErrorResponse) {
 
   // Return the error message for the UI to handle
   return throwError(errorMessage);
-}
+} 

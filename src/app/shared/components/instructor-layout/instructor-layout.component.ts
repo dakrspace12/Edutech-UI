@@ -22,3 +22,4 @@ export class InstructorLayoutComponent {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 }
+ 

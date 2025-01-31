@@ -22,9 +22,11 @@ import { ManageCoursesComponent } from './modules/admin/components/manage-course
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 import { ManageUsersComponent } from './modules/admin/components/manage-users/manage-users.component';
 import { InstructorLayoutComponent } from './shared/components/instructor-layout/instructor-layout.component';
+import { AccountSettingsComponent } from './modules/admin/components/account-settings/account-settings.component';
+import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/admin-sidebar.component';
 import { RoleGuard } from './core/guards/role.guard';
 import { MessagesComponent } from './modules/student/components/sidebar-component/messages/messages.component';
-
+import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
 
 
 export const routes: Routes = [
@@ -39,7 +41,8 @@ export const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, RoleGuard],
+    data: { roles: ['ROLE_USER'] },
     children: [
       { path: 'dashboard', component: HomeSectionComponent },
       { path: 'navbar', component: NavbarComponent },
@@ -54,12 +57,11 @@ export const routes: Routes = [
           { path: 'my-lists', component: StudentsMyListsComponent },
           { path: 'wishlist', component: StudentsWishlistComponent },
           { path: 'archived', component: StudentsArchivedComponent },
-          { path: 'learning-tools', component: StudentsLearningToolsComponent },
+          { path: 'learning-tools', component: StudentsLearningToolsComponent }
         ],
       },
-      { path: 'messagess', component: MessagesComponent },
-     
-    ],
+      { path: 'messagess', component: MessagesComponent }
+     ],
   },
   {
     path: 'admin-layout',
@@ -67,17 +69,19 @@ export const routes: Routes = [
     canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_ADMIN'] },
     children: [
+
       { path: 'admin-dashboard', component: AdminDashboardComponent },
       { path: 'manage-courses', component: ManageCoursesComponent },
-      { path: 'manage-users', component: ManageUsersComponent },
+      { path: 'manage-users', component: ManageUsersComponent }
     ],
   },
   {
-    path: 'instructor-Layout',
+    path: 'instructor-layout', 
     component: InstructorLayoutComponent,
     canActivate: [authGuard, RoleGuard],
-    data: { roles: ['ROLE_INSTRUCTOR'] },
-    children: [],
-  },
-  { path: '**', redirectTo: '/login' },
+    data: { roles: ['ROLE_INSTRUCTOR'] }, 
+    children: [
+   {path:'instructor-dashboard', component: InstructorDashboardComponent},
+    ]},
+  { path: '**', redirectTo: '/login' }, 
 ];
