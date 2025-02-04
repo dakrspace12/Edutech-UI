@@ -26,6 +26,7 @@ import { AccountSettingsComponent } from './modules/admin/components/account-set
 import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/admin-sidebar.component';
 import { RoleGuard } from './core/guards/role.guard';
 import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
+import { ProfileComponent } from './modules/admin/components/account-settings/profile/profile.component';
 
 
 
@@ -69,10 +70,18 @@ export const routes: Routes = [
     { path:'admin-dashboard', component:AdminDashboardComponent },
     { path: 'manage-courses', component: ManageCoursesComponent },
     { path: 'manage-users', component: ManageUsersComponent },
-    { path: 'account-settings', component: AccountSettingsComponent },
+    { path: 'account-settings', component: AccountSettingsComponent,
+      children: [ 
+      {path: 'profile', component: ProfileComponent},
+    ]
+     },
     { path: 'account-side', component: AdminSidebarComponent },
+    // {path: 'profile', component: ProfileComponent},
   
   ]},
+
+ // {path: 'profile', component: ProfileComponent},
+
   {
     path: 'instructor-Layout', 
     component: InstructorLayoutComponent,
