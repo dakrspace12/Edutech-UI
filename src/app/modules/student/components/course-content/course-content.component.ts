@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CourseContentSidebarComponent } from '../course-content-sidebar/course-content-sidebar.component';
 
 // Define an interface for the course content
 interface CourseContent {
@@ -18,7 +19,7 @@ interface CourseContent {
   selector: 'app-course-content',
   templateUrl: './course-content.component.html',
   styleUrls: ['./course-content.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule,CourseContentSidebarComponent],
 })
 export class CourseContentComponent implements OnInit {
   courseId!: number;
