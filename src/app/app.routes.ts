@@ -28,8 +28,7 @@ import { RoleGuard } from './core/guards/role.guard';
 import { MessagesComponent } from './modules/student/components/sidebar-component/messages/messages.component';
 import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
 import { CreateCourseComponent } from './modules/instructor/component/create-course/create-course.component';
-import path from 'path';
-
+import { ProfileComponent } from './modules/admin/components/account-settings/profile/profile.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent },
@@ -71,12 +70,17 @@ export const routes: Routes = [
     canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_ADMIN'] },
     children: [
-
-      { path: 'admin-dashboard', component: AdminDashboardComponent },
-      { path: 'manage-courses', component: ManageCoursesComponent },
-      { path: 'manage-users', component: ManageUsersComponent }
-    ],
-  },
+    { path:'admin-dashboard', component:AdminDashboardComponent },
+    { path: 'manage-courses', component: ManageCoursesComponent },
+    { path: 'manage-users', component: ManageUsersComponent },
+    { path: 'account-settings', component: AccountSettingsComponent,
+      children: [ 
+      {path: 'profile', component: ProfileComponent},
+    ]
+     },
+    { path: 'account-side', component: AdminSidebarComponent },
+  
+  ]},
   {
     path: 'instructor-layout', 
     component: InstructorLayoutComponent,
