@@ -43,4 +43,4 @@ export const authGuard: CanActivateFn = (route:ActivatedRouteSnapshot, state: Ro
     console.log('No token found');
     router.navigate(['/login']);
     return new Observable<boolean>((observer) => observer.next(false));
-  };
+  }; 

@@ -166,4 +166,4 @@ export class LoginComponent {
   navigateBack(): void {
     this.location.back();
   }
-}
+} 
