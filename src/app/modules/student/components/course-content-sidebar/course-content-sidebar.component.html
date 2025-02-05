@@ -1,0 +1,37 @@
+<!-- Hamburger icon to toggle sidebar visibility, shown only when the sidebar is closed -->
+<div class="hamburg-container" (click)="toggleNav()">
+    <div class="hamburger" *ngIf="!isNavOpen" >&#x2190;</div>
+    </div>
+<!-- Sidebar -->
+<div class="sidenav" [class.open]="isNavOpen">
+  <!-- Close icon inside the sidebar, shown only when the sidebar is open -->
+  <div class="close-icon" *ngIf="isNavOpen" (click)="toggleNav()">&#x2192;</div>
+  <!-- Left arrow to close the sidebar -->
+
+  <div class="title">Course content</div>
+  <hr />
+
+  <!-- with dropdown -->
+  <div class="module-sections" *ngFor="let module of modules">
+    <!-- Module Title Bar -->
+    <div class="module-section-title-bar" (click)="toggleLessons(module.section_id)" >
+      <div class="module-section-name" >Section {{module.section_id}}: {{module.section_title}}</div>
+      <div class="module-duration">0/{{module.section_size}} | {{module.section_duration}} min</div>
+      <button class="dropdown-btn">{{ isLessonsVisible[module.section_id] ? "▲" : "▼" }}</button>
+    </div>
+
+    <!-- Lessons List (Hidden by Default) -->
+    <div class="lessons-container" *ngIf="isLessonsVisible[module.section_id]">
+      <div class="lessons" *ngFor="let lesson of module.lesson">
+        <div class="lessons-topics" >
+          <label>
+            <input type="checkbox" class="lesson-checkbox" /> {{lesson.name }}
+          </label>
+          <div class="lesson-duration">{{lesson.duration }} mins</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,148 @@
+/* Styles for the hamburger icon positioned on the right side */
+.hamburger {
+    font-size: 45px;
+    cursor: pointer;
+    position: absolute;
+    padding-bottom: 10px;
+    padding-right: 80px;
+    right: 20px; /* Move the hamburger icon to the right */
+    z-index: 1000;  /* Ensure the icon is above the content */
+  }
+   .hamburg-container{
+    border: 1px solid rgb(40, 36, 36);
+    height: 25px;
+    width: 150px;
+    font-size: 45px;
+    cursor: pointer;
+    position: absolute;
+    display: flex;             /* Aligns items horizontally */
+    align-items: center;       /* Centers the hamburger vertically */
+    justify-content: left;
+    top: 85px;
+    right: -100px;
+    transition: background-color 0.6s ease, transform 0.4s ease;
+  
+  }
+  /*
+  .hamburg-container:hover{
+    background-color: violet;
+    transition: ;
+  } */
+  
+  .hamburg-container:hover {
+    background-color: violet;
+    transform: translateX(-70px); /* Moves the element 10px to the right */
+  }
+  /* Basic styles for the sidebar */
+  .sidenav {
+    position: fixed;
+    top: 0;
+    margin-top: 63px;
+    right: -380px;  /* Initially off-screen */
+    width: 350px;
+    height: 90%;
+    background-color: white;
+    border: 1px solid black;
+    overflow-x: auto;
+    transition: right 0.3s ease;  /* Smooth transition for sliding */
+  }
+  
+  /* When the sidebar is open, it will slide in */
+  .sidenav.open {
+    
+     right :19px;
+  }
+  
+  .title {
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    margin-top: 15px;
+    justify-content: center;
+    text-align: justify;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  hr {
+    margin: 0;
+    border: 1px solid rgb(216, 213, 213); /* Customize line thickness */
+  }
+  
+  .module-section-title-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 12px;
+    background-color: rgb(224, 220, 220);
+    cursor: pointer;
+  }
+  
+  .module-duration {
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  .module-section-name {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .lessons {
+    width: 100%;
+    padding-left: 5px   ;
+    margin-top: 5px;
+  }
+  
+  .lessons-topics {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2px;
+  }
+  .lessons:hover{
+  
+    background-color:rgb(224, 220, 220);
+    cursor:pointer;
+  }
+  .lesson-checkbox {
+    margin-right: 10px;
+    transform: scale(1);
+    vertical-align: middle;
+   
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lesson-duration {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-left: 30px;
+    margin-top: 5px;
+    padding-left: 12px;
+  }
+  
+  
+  .close-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left:300px;  
+    z-index: 1001; 
+    color: rgb(159, 58, 58);
+  }
+  
+  .dropdown-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
