@@ -27,6 +27,8 @@ import { AdminSidebarComponent } from './modules/admin/components/admin-sidebar/
 import { RoleGuard } from './core/guards/role.guard';
 import { MessagesComponent } from './modules/student/components/sidebar-component/messages/messages.component';
 import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
+import { CreateCourseComponent } from './modules/instructor/component/create-course/create-course.component';
+import path from 'path';
 
 
 export const routes: Routes = [
@@ -81,7 +83,8 @@ export const routes: Routes = [
     canActivate: [authGuard, RoleGuard],
     data: { roles: ['ROLE_INSTRUCTOR'] }, 
     children: [
-   {path:'instructor-dashboard', component: InstructorDashboardComponent},
+   {path:'', component: InstructorDashboardComponent},
+    { path: 'create-courses', component: CreateCourseComponent }
     ]},
   { path: '**', redirectTo: '/login' }, 
 ];
