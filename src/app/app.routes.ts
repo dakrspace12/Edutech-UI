@@ -80,13 +80,6 @@ export const routes: Routes = [
     { path: 'account-side', component: AdminSidebarComponent },
   
   ]},
-
-
-      { path: 'admin-dashboard', component: AdminDashboardComponent },
-      { path: 'manage-courses', component: ManageCoursesComponent },
-      { path: 'manage-users', component: ManageUsersComponent }
-    ],
-  },
   {
     path: 'instructor-layout', 
     component: InstructorLayoutComponent,
