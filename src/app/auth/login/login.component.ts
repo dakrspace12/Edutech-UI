@@ -82,7 +82,7 @@ export class LoginComponent {
               if (role === Role.Admin) {
                 this.router.navigate(['/admin-layout/admin-dashboard']);
               } else if (role === Role.Instructor) {
-                this.router.navigate(['/instructor-layout/instructor-dashboard']);
+                this.router.navigate(['/instructor-layout']);
               } else if (role === Role.User) {
                 this.router.navigate(['/layout/dashboard']);
               } else {
