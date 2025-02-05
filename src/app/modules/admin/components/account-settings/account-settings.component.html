@@ -1,41 +1,47 @@
-<div class="account-sidebar">
+<div class="account-sidebar d-flex">
   <!-- User Info Section -->
-  <div class="user-info">
-    <div class="user-avatar">ST</div>
-    <div class="user-name"><strong>Sachin Tendulkar</strong></div>
-  </div>
+  <div class="sidebar-container">
 
-  <!-- Sidebar Menu -->
-  <ul class="profile-options">
-    <li (click)="selectOption('view-profile')" [class.active]="selectedOption === 'public-profile'">
-      View public profile
-    </li>
-    <li (click)="selectOption('profile')" [class.active]="selectedOption === 'profile'">
-      Profile
-    </li>
-    <li (click)="selectOption('photo')" [class.active]="selectedOption === 'photo'">
-      Photo
-    </li>
-    <li (click)="selectOption('security')" [class.active]="selectedOption === 'security'">
-      Account Security
-    </li>
-    <li (click)="selectOption('subscriptions')" [class.active]="selectedOption === 'subscriptions'">
-      Subscriptions
-    </li>
-    <li (click)="selectOption('payments')" [class.active]="selectedOption === 'payments'">
-      Payment methods
-    </li>
-    <li (click)="selectOption('privacy')" [class.active]="selectedOption === 'privacy'">
-      Privacy
-    </li>
-    <li (click)="selectOption('notifications')" [class.active]="selectedOption === 'notifications'">
-      Notifications
-    </li>
-    <li (click)="selectOption('api-clients')" [class.active]="selectedOption === 'api-clients'">
-      API clients
-    </li>
-    <li (click)="selectOption('close-account')" [class.active]="selectedOption === 'close-account'">
-      Close account
-    </li>
-  </ul>
+    <div class="user-info">
+      <div class="user-avatar">ST</div>
+      <div class="user-name"><strong>Sachin Tendulkar</strong></div>
+    </div>
+
+    <div>
+      <ul class="profile-options">
+        <li (click)="selectOption('view-profile')" [class.active]="selectedOption === 'public-profile'">
+          View public profile
+        </li>
+        <li (click)="selectOption('profile')" [class.active]="selectedOption === 'profile'">
+          <a routerLink="/admin-layout/account-settings/profile" routerLinkActive="active">Profile</a>
+        </li>
+        <li (click)="selectOption('photo')" [class.active]="selectedOption === 'photo'">
+          Photo
+        </li>
+        <li (click)="selectOption('security')" [class.active]="selectedOption === 'security'">
+          Account Security
+        </li>
+        <li (click)="selectOption('subscriptions')" [class.active]="selectedOption === 'subscriptions'">
+          Subscriptions
+        </li>
+        <li (click)="selectOption('payments')" [class.active]="selectedOption === 'payments'">
+          Payment methods
+        </li>
+        <li (click)="selectOption('privacy')" [class.active]="selectedOption === 'privacy'">
+          Privacy
+        </li>
+        <li (click)="selectOption('notifications')" [class.active]="selectedOption === 'notifications'">
+          Notifications
+        </li>
+        <li (click)="selectOption('api-clients')" [class.active]="selectedOption === 'api-clients'">
+          API clients
+        </li>
+        <li (click)="selectOption('close-account')" [class.active]="selectedOption === 'close-account'">
+          Close account
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="account-router"> <router-outlet></router-outlet></div>
+
 </div>
