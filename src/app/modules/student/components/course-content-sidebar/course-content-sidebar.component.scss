@@ -1,53 +1,51 @@
-/* Styles for the hamburger icon positioned on the right side */
+
 .hamburger {
     font-size: 45px;
-    cursor: pointer;
     position: absolute;
     padding-bottom: 10px;
     padding-right: 80px;
-    right: 20px; /* Move the hamburger icon to the right */
-    z-index: 1000;  /* Ensure the icon is above the content */
+
+    z-index: 0; 
   }
    .hamburg-container{
     border: 1px solid rgb(40, 36, 36);
     height: 25px;
-    width: 150px;
+    width: 90px;
     font-size: 45px;
     cursor: pointer;
-    position: absolute;
-    display: flex;             /* Aligns items horizontally */
-    align-items: center;       /* Centers the hamburger vertically */
+    position: fixed;
+    display: flex;             
+    align-items: center;      
     justify-content: left;
     top: 85px;
-    right: -100px;
-    transition: background-color 0.6s ease, transform 0.4s ease;
+    right: 20px;
+   
+    background-color: violet;
   
   }
-  /*
-  .hamburg-container:hover{
-    background-color: violet;
-    transition: ;
-  } */
+
   
   .hamburg-container:hover {
+
     background-color: violet;
-    transform: translateX(-70px); /* Moves the element 10px to the right */
+    transition: background-color 0.6s ease, transform 1.5s ease;    
+    width:120px;
   }
-  /* Basic styles for the sidebar */
+
   .sidenav {
     position: fixed;
     top: 0;
     margin-top: 63px;
-    right: -380px;  /* Initially off-screen */
+    right: -380px;  
     width: 350px;
     height: 90%;
     background-color: white;
     border: 1px solid black;
     overflow-x: auto;
-    transition: right 0.3s ease;  /* Smooth transition for sliding */
+    transition: right 0.3s ease;  
   }
   
-  /* When the sidebar is open, it will slide in */
+ 
   .sidenav.open {
     
      right :19px;
@@ -66,7 +64,7 @@
   
   hr {
     margin: 0;
-    border: 1px solid rgb(216, 213, 213); /* Customize line thickness */
+    border: 1px solid rgb(216, 213, 213); 
   }
   
   .module-section-title-bar{
@@ -132,7 +130,7 @@
     position: absolute;
     top: 10px;
     left:300px;  
-    z-index: 1001; 
+    z-index: 0; 
     color: rgb(159, 58, 58);
   }
   

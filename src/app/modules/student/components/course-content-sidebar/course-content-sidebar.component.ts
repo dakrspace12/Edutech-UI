@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import Module from 'module';
+
 
 interface Lessons{
   name:string,
@@ -26,7 +26,7 @@ export class CourseContentSidebarComponent{
 
  idx:number=0;
   title="navbar"
-  isNavOpen = false;  // Variable to track the sidebar state
+  isNavOpen = false;  
 
   modules:Modules[]=[{
     section_id: 1,
@@ -73,7 +73,7 @@ export class CourseContentSidebarComponent{
 
   isLessonsVisible: { [key: number]: boolean } = {};
   
-  // Toggle function to open/close the sidebar
+  
   toggleNav() {
     this.isNavOpen = !this.isNavOpen;
   }
