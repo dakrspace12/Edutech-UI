@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CourseContentSidebarComponent } from '../course-content-sidebar/course-content-sidebar.component';
-
+import { CoursesService } from '../course-enrollment/courses.service';
 // Define an interface for the course content
 interface CourseContent {
   section: string;
@@ -33,11 +33,16 @@ export class CourseContentComponent implements OnInit {
     { section: 'React Essentials - Components, JSX, Props, State & More', completed: '0', total: '40', duration: '2hr 27min', contentUrl: 'https://www.youtube.com/watch?v=w7ejDZ8SWv8', contentType: 'video' },
   ];
 
-  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
+  course:any; //this is passed to the course to course-content-side-bar
+
+  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer,private courseService:CoursesService ) {}
 
   ngOnInit() {
+
+    this.course=this.courseService.getCourses1();
+    
     this.route.params.subscribe((params) => {
-      this.courseId = +params['id'];
+      this.courseId = params['id'];
       // Initialize with the first video
       this.selectVideo(this.courseContents[0].contentUrl, this.courseContents[0].section);
     });

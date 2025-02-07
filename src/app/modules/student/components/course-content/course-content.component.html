@@ -4,7 +4,7 @@
     <div class="main-content">
       <!-- Video Player Section -->
       <div class="video-player">
-        <h2>{{ courseTitle }}</h2>
+        <h2>{{ course.name }}</h2>
         <video controls [src]="videoUrl" class="video-element">Your browser does not support the video tag.</video>
         <h3>{{ videoTitle }}</h3>
       </div>
@@ -32,6 +32,6 @@
   </div> 
 </div>
 
-<app-course-content-sidebar></app-course-content-sidebar>
+<app-course-content-sidebar [course]="course"></app-course-content-sidebar>
 
 </div>

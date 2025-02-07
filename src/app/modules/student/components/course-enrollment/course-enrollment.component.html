@@ -8,7 +8,7 @@
   <!-- Course List -->
   <div class="course-list">
     <div *ngFor="let course of filteredCourses" class="course-card">
-      <a [routerLink]="['/layout/courses', course.id]" class="course-link">
+      <a (click)="goToCourseContent(course)" [routerLink]="['/layout/courses',course.id]" class="course-link">
         <div class="course-info">
           <h3 class="course-title">{{ course.name }}</h3>
           <p class="course-description">{{ course.description }}</p>

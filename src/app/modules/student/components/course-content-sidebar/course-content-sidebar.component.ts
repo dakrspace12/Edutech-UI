@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { CoursesService } from '../course-enrollment/courses.service';
 
 interface Lessons{
   name:string,
@@ -23,6 +23,13 @@ interface Modules {
   styleUrl: './course-content-sidebar.component.scss'
 })
 export class CourseContentSidebarComponent{
+
+  
+  @Input() course: any;
+  
+  ngOnit(){
+    console.log(this.course);
+  }
 
  idx:number=0;
   title="navbar"
