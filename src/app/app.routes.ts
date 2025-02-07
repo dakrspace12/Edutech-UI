@@ -29,6 +29,7 @@ import { MessagesComponent } from './modules/student/components/sidebar-componen
 import { InstructorDashboardComponent } from './modules/instructor/instructor-dashboard/instructor-dashboard.component';
 import { CreateCourseComponent } from './modules/instructor/component/create-course/create-course.component';
 import { ProfileComponent } from './modules/admin/components/account-settings/profile/profile.component';
+import { PhotoComponent } from './modules/admin/components/account-settings/photo/photo.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent },
@@ -76,6 +77,7 @@ export const routes: Routes = [
     { path: 'account-settings', component: AccountSettingsComponent,
       children: [ 
       {path: 'profile', component: ProfileComponent},
+      {path: 'photo', component: PhotoComponent},
     ]
      },
     { path: 'account-side', component: AdminSidebarComponent },

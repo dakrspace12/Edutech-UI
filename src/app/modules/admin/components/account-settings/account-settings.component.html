@@ -16,7 +16,7 @@
           <a routerLink="/admin-layout/account-settings/profile" routerLinkActive="active">Profile</a>
         </li>
         <li (click)="selectOption('photo')" [class.active]="selectedOption === 'photo'">
-          Photo
+          <a routerLink="/admin-layout/account-settings/photo" routerLinkActive="active">Photo</a>
         </li>
         <li (click)="selectOption('security')" [class.active]="selectedOption === 'security'">
           Account Security
