@@ -4,14 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CourseContentSidebarComponent } from '../course-content-sidebar/course-content-sidebar.component';
 import { CoursesService } from '../course-enrollment/courses.service';
-// Define an interface for the course content
 interface CourseContent {
   section: string;
   completed: string;
   total: string;
   duration: string;
-  contentUrl: string;  // URL or file path of the content
-  contentType: string; // e.g., video, document, etc.
+  contentUrl: string;
+  contentType: string;
 }
 
 @Component({
@@ -33,7 +32,7 @@ export class CourseContentComponent implements OnInit {
     { section: 'React Essentials - Components, JSX, Props, State & More', completed: '0', total: '40', duration: '2hr 27min', contentUrl: 'https://www.youtube.com/watch?v=w7ejDZ8SWv8', contentType: 'video' },
   ];
 
-  course:any; //this is passed to the course to course-content-side-bar
+  course:any;
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer,private courseService:CoursesService ) {}
 
@@ -43,7 +42,7 @@ export class CourseContentComponent implements OnInit {
     
     this.route.params.subscribe((params) => {
       this.courseId = params['id'];
-      // Initialize with the first video
+   
       this.selectVideo(this.courseContents[0].contentUrl, this.courseContents[0].section);
     });
   }
