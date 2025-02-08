@@ -13,13 +13,23 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService { 
   private apiUrl = environment.apiUrl;
- 
+  private courseApiUrl= environment.courseApiUrl;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private tokenService: TokenService
   ) {}
+
+  //Post Methods for Courses
+  postData(data: { name: string; description: string; }): Observable<any>{
+    const token = this.tokenService.getAccessToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(this.courseApiUrl, data, { headers });
+  }
   /**
    * Retrieves the user ID from the access token.
    * @returns The user ID or null if token is invalid or not found.
