@@ -13,22 +13,22 @@
   <hr />
 
  
-  <div class="module-sections" *ngFor="let module of modules">
+  <div class="module-sections" *ngFor="let module of course.modules">
    
-    <div class="module-section-title-bar" (click)="toggleLessons(module.section_id)" >
-      <div class="module-section-name" >Section {{module.section_id}}: {{module.section_title}}</div>
-      <div class="module-duration">0/{{module.section_size}} | {{module.section_duration}} min</div>
-      <button class="dropdown-btn">{{ !isLessonsVisible[module.section_id] ? "▶" : "▼" }}</button>
+    <div class="module-section-title-bar" (click)="toggleLessons(module.id)" >
+      <div class="module-section-name" >Section {{module.id}}: {{module.moduleName}}</div>
+      <div class="module-duration">0/{{modules.length}} | 5 min</div>
+      <button class="dropdown-btn">{{ !isLessonsVisible[module.id] ? "▶" : "▼" }}</button>
     </div>
 
    
-    <div class="lessons-container" *ngIf="isLessonsVisible[module.section_id]">
-      <div class="lessons" *ngFor="let lesson of module.lesson">
+    <div class="lessons-container" *ngIf="isLessonsVisible[module.id]">
+      <div class="lessons" *ngFor="let lesson of module.lessons">
         <div class="lessons-topics" >
           <label>
-            <input type="checkbox" class="lesson-checkbox" /> {{lesson.name }}
+            <input type="checkbox" class="lesson-checkbox" /> {{lesson.title }}
           </label>
-          <div class="lesson-duration">{{lesson.duration }} mins</div>
+          <div class="lesson-duration">5 mins</div>
         </div>
       </div>
     </div>
@@ -36,3 +36,5 @@
   </div>
 
 </div>
+
+
