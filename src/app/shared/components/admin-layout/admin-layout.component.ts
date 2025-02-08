@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AdminDashboardComponent } from 'src/app/modules/admin/admin-dashboard/admin-dashboard.component';
 import { RouterModule } from '@angular/router';
 import { FooterSectionComponent } from '../footer-section/footer-section.component';
 import { AdminNavbarComponent } from 'src/app/modules/admin/components/admin-navbar/admin-navbar.component';

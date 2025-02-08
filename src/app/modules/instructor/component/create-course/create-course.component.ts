@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { AuthService } from 'src/app/core/services/authservice/auth.service';
 
 @Component({
@@ -31,7 +30,7 @@ export class CreateCourseComponent {
 
   submitForm(){
     if (this.courseForm.valid) {
-      const formData = this.courseForm.value;  // ✅ Fix: Correctly getting form data
+      const formData = this.courseForm.value;  
 
       this.apiService.postData(formData).subscribe({
         next: (response) => {

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CoursesService {
 
-  private apiUrl=environment.courseurl;
+  private apiUrl=environment.courseUrl;
   ;
 
   selectedCourse:any=null;
