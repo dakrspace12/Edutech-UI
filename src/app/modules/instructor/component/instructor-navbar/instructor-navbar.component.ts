@@ -28,9 +28,9 @@ export class InstructorNavbarComponent {
       private http: HttpClient,
     ) {}
   
-    @Output() porfileClicked = new EventEmitter<void>();
+    @Output() profileClicked = new EventEmitter<void>();
     onCartIconClick(): void {
-      this.porfileClicked.emit();
+      this.profileClicked.emit();
     }
     logout() {
       this.authService.logout();

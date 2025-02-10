@@ -9,9 +9,15 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/admin-layout/manage-courses">Courses</a>
             </li> 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/admin-layout/manage-users">Students</a>
-            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Users
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item users-link" (click)="navigateTo('user')">Students</a>
+                  <a class="dropdown-item users-link"(click)="navigateTo('instructor')">Instructors</a>
+                </div>
+              </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/categories">Categories</a>
             </li>

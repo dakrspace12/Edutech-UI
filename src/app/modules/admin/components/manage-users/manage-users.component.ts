@@ -11,7 +11,7 @@ interface User {
   lastName: string;
   username: string;
   email: string;
-  mobileNo: string;
+  mobile_no: string;
   roles: string[];
 }
 @Component({
@@ -155,7 +155,7 @@ export class ManageUsersComponent implements OnInit {
         break;
       case 'mobile':
         this.filteredUsers = this.users.filter(user =>
-          user.mobileNo.toLowerCase().includes(this.searchTerm)
+          user.mobile_no.toLowerCase().includes(this.searchTerm)
         );
         break;
       default:
