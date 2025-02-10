@@ -30,10 +30,10 @@ export class AdminNavbarComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  @Output() profileClicked = new EventEmitter<void>();
+  @Output() porfileClicked = new EventEmitter<void>();
 
   onCartIconClick(): void {
-    this.profileClicked.emit();
+    this.porfileClicked.emit();
   }
 
   logout() {
@@ -52,10 +52,7 @@ export class AdminNavbarComponent implements OnInit {
 
   getUserDetails(userId: string): void {
     const url = `http://localhost:8080/api/v1/users/${userId}`;
-    const token = this.authService.getAccessToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-    this.http.get<any>(url, { headers }).subscribe(
+    this.http.get<any>(url).subscribe(
       (response) => {
         if (response) {
           const userData = response.data;
