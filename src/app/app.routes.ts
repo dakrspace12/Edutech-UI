@@ -30,6 +30,7 @@ import { InstructorDashboardComponent } from './modules/instructor/instructor-da
 import { CreateCourseComponent } from './modules/instructor/component/create-course/create-course.component';
 import { ProfileComponent } from './modules/admin/components/account-settings/profile/profile.component';
 import { PhotoComponent } from './modules/admin/components/account-settings/photo/photo.component';
+import { AccountSecurityComponent } from './modules/admin/components/account-settings/account-security/account-security.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent },
@@ -78,6 +79,7 @@ export const routes: Routes = [
       children: [ 
       {path: 'profile', component: ProfileComponent},
       {path: 'photo', component: PhotoComponent},
+      {path: 'account-security', component: AccountSecurityComponent},   
     ]
      },
     { path: 'account-side', component: AdminSidebarComponent },
