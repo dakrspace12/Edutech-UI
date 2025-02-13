@@ -80,6 +80,7 @@ export const routes: Routes = [
       children: [ 
       {path: 'profile', component: ProfileComponent},
       {path: 'photo', component: PhotoComponent},
+      {path: 'account-security', component: AccountSecurityComponent},   
     ]
      },
     { path: 'account-side', component: AdminSidebarComponent },

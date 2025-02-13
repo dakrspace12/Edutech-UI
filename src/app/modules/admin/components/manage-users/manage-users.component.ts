@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/core/services/tokenservice/token.service';
-interface Role {
-  id: number;
-  name: string;
-}
 
 interface User {
   id: number;
@@ -14,10 +11,9 @@ interface User {
   lastName: string;
   username: string;
   email: string;
-  mobileNo: string;
+  mobile_no: string;
   roles: string[];
 }
-
 @Component({
   selector: 'app-manage-users',
   standalone: true,
@@ -29,57 +25,84 @@ export class ManageUsersComponent implements OnInit {
   searchFilter: string = 'All'; 
   searchPlaceholder: string = 'Get All User Data';
   searchTerm: string = '';
+  roleFilter: string = 'all';
   users: User[] = []; 
   filteredUsers: User[] = []; 
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private route: ActivatedRoute
   ) {
     this.filteredUsers = [...this.users];
   }
 
   ngOnInit(): void {
-    this.fetchUsers();
+    this.route.queryParams.subscribe(params => {
+      this.roleFilter = params['role'] || 'all';
+      this.fetchUsers();
+    });
   }
 
   fetchUsers(): void {
     const token = this.tokenService.getAccessToken();
+    
     if (!token) {
-      alert('User is not authenticated. Please log in again.');
+      this.handleError('User is not authenticated. Please log in again.');
       return;
     }
-
+  
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+ 
+    let params = new HttpParams();
+    if (this.roleFilter !== 'all') {
+      params = params.append('role', this.roleFilter);
+    }
+  
     const url = 'http://localhost:8080/api/v1/users';
-
-    this.http.get<any>(url, { headers }).subscribe(
+  
+    // Perform the HTTP GET request
+    this.http.get<any>(url, { headers, params }).subscribe(
       (response) => {
-        if (response &&  response.data && Array.isArray(response.data)) {
-          this.users = response.data.filter((user:User) => {
-            return user.roles && user.roles.includes('ROLE_USER');
-          }
-        );
-          this.filteredUsers = [...this.users];
+        if (response && response.data && Array.isArray(response.data)) {
+          this.users = response.data;
+          this.filterUsers();
         } else {
-          console.error('Invalid user data in response');
-          alert('Failed to fetch users. Please try again later.');
+          console.error('Invalid user data in response', response);
+          this.handleError('Failed to fetch users. Please try again later.');
         }
       },
-      (error) => {
-        console.error('Error fetching users:', error);
-        if (error.status === 401) {
-          alert('Unauthorized access. Please log in again.');
-        } else if (error.status === 500) {
-          alert('Server error. Please try again later.');
-        } else {
-          alert('Failed to fetch users. Please try again later.');
-        } 
-      }
+      (error) => this.handleErrorFromHttp(error)
     );
   }
 
-  updatePlaceholder(){
+  private handleError(message: string): void {
+    alert(message);
+  }
+
+  private handleErrorFromHttp(error: any): void {
+    console.error('Error fetching users:', error);
+    if (error.status === 401) {
+      this.handleError('Unauthorized access. Please log in again.');
+    } else if (error.status === 500) {
+      this.handleError('Server error. Please try again later.');
+    } else {
+      this.handleError('Failed to fetch users. Please try again later.');
+    }
+  }
+  
+
+  filterUsers() {
+    if (this.roleFilter === 'all') {
+      this.filteredUsers = [...this.users];
+    } else {
+      this.filteredUsers = this.users.filter(user =>
+        user.roles.includes(`ROLE_${this.roleFilter.toUpperCase()}`)
+      );
+    }
+  }
+
+  updatePlaceholder() {
     switch (this.searchFilter) {
       case 'All':
         this.searchPlaceholder = 'Get All User Data';
@@ -103,7 +126,8 @@ export class ManageUsersComponent implements OnInit {
         this.searchPlaceholder = '';
     }
   }
-  onSearch() : void{
+
+  onSearch(): void {
     const searchTermLower = this.searchTerm.toLowerCase();
     switch (this.searchFilter) {
       case 'All':
@@ -131,27 +155,27 @@ export class ManageUsersComponent implements OnInit {
         break;
       case 'mobile':
         this.filteredUsers = this.users.filter(user =>
-          user.mobileNo.toLowerCase().includes(this.searchTerm)
+          user.mobile_no.toLowerCase().includes(this.searchTerm)
         );
         break;
       default:
         this.filteredUsers = [...this.users];
     }
-    if(this.filteredUsers.length === 0){
+    if (this.filteredUsers.length === 0) {
       alert('User not found');
       this.filteredUsers = [...this.users];
     }
   }
 
-  onView(userId: number):void {
+  onView(userId: number): void {
     alert('Viewing details for User ID: ' + userId);
   }
 
-  onUpdate(userId: number):void {
+  onUpdate(userId: number): void {
     alert('Updating User ID: ' + userId);
   }
 
-  onDelete(userId: number):void {
+  onDelete(userId: number): void {
     const token = this.tokenService.getAccessToken();
     if (!token) {
       alert('User is not authenticated. Please log in again.');
@@ -162,14 +186,14 @@ export class ManageUsersComponent implements OnInit {
     const url = `http://localhost:8080/api/v1/users/${userId}`;
     this.http.delete(url, { headers }).subscribe(
       () => {
-    this.users = this.users.filter(user => user.id !== userId);
-    this.filteredUsers = [...this.users];
-    alert('User successfully deleted!');
-  },
-  (error) => {
-    console.error('Error deleting user:', error);
-    alert('Failed to delete user. Please try again later.');
-  }
-);
+        this.users = this.users.filter(user => user.id !== userId);
+        this.filteredUsers = [...this.users];
+        alert('User successfully deleted!');
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        alert('Failed to delete user. Please try again later.');
+      }
+    );
   }
 }

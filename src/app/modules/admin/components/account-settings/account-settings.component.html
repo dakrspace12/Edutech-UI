@@ -9,35 +9,33 @@
 
     <div>
       <ul class="profile-options">
-        <li (click)="selectOption('view-profile')" [class.active]="selectedOption === 'public-profile'">
-          View public profile
-        </li>
         <li (click)="selectOption('profile')" [class.active]="selectedOption === 'profile'">
           <a routerLink="/admin-layout/account-settings/profile" routerLinkActive="active">Profile</a>
         </li>
         <li (click)="selectOption('photo')" [class.active]="selectedOption === 'photo'">
           <a routerLink="/admin-layout/account-settings/photo" routerLinkActive="active">Photo</a>
         </li>
-        <li (click)="selectOption('security')" [class.active]="selectedOption === 'security'">
-          Account Security
+        <li (click)="selectOption('account-security')" [class.active]="selectedOption === 'account-security'">
+          <a routerLink="/admin-layout/account-settings/account-security">Account Security</a>
         </li>
-        <li (click)="selectOption('subscriptions')" [class.active]="selectedOption === 'subscriptions'">
+        <!-- <li (click)="selectOption('subscriptions')" [class.active]="selectedOption === 'subscriptions'">
           Subscriptions
         </li>
         <li (click)="selectOption('payments')" [class.active]="selectedOption === 'payments'">
           Payment methods
-        </li>
+        </li> -->
         <li (click)="selectOption('privacy')" [class.active]="selectedOption === 'privacy'">
-          Privacy
+          <a routerLink="/admin-layout/account-settings/privacy">Privacy</a>
         </li>
-        <li (click)="selectOption('notifications')" [class.active]="selectedOption === 'notifications'">
+        <!-- <li (click)="selectOption('notifications')" [class.active]="selectedOption === 'notifications'">
           Notifications
         </li>
         <li (click)="selectOption('api-clients')" [class.active]="selectedOption === 'api-clients'">
           API clients
-        </li>
+        </li> -->
         <li (click)="selectOption('close-account')" [class.active]="selectedOption === 'close-account'">
-          Close account
+          <a routerLink="/admin-layout/account-settings/close-account">Close account</a>
+
         </li>
       </ul>
     </div>
