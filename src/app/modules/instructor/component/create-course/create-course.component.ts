@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { AuthService } from 'src/app/core/services/authservice/auth.service';
+import { Router, RouterModule } from '@angular/router';
+import { ApiService } from 'src/app/core/services/apiservice/api.service';
 
 @Component({
   selector: 'app-create-course',
@@ -20,29 +20,23 @@ export class CreateCourseComponent {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: AuthService,
+    private router: Router,
+    private apiServece: ApiService,
   ) {
+    
     this.courseForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required]
     });
+    const saveData = this.apiServece.getCourseData();
+    if(saveData){
+      this.courseForm.patchValue(saveData);
+    }    
   }
 
   submitForm(){
-    if (this.courseForm.valid) {
-      const formData = this.courseForm.value;  
-
-      this.apiService.postData(formData).subscribe({
-        next: (response) => {
-          alert('Course posted successfully')
-          console.log('Course posted successfully', response);
-        },
-        error: (error) => {
-          alert('Error posting data')
-          console.error('Error posting data', error);
-        }
-      });
-    }
+    this.apiServece.saveCourseData(this.courseForm.value);
+    this.router.navigate(['/instructor-layout/create-module']);
   }
   goBack() {
     console.log('Back button clicked');

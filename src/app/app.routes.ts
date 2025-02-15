@@ -30,7 +30,8 @@ import { InstructorDashboardComponent } from './modules/instructor/instructor-da
 import { CreateCourseComponent } from './modules/instructor/component/create-course/create-course.component';
 import { ProfileComponent } from './modules/admin/components/account-settings/profile/profile.component';
 import { PhotoComponent } from './modules/admin/components/account-settings/photo/photo.component';
-import { AccountSecurityComponent } from './modules/admin/components/account-settings/account-security/account-security.component';
+import { CreateCourseModulesComponent } from './modules/instructor/component/create-course-modules/create-course-modules.component';
+import { CreateLessonsComponent } from './modules/instructor/component/create-lessons/create-lessons.component';
 
 export const routes: Routes = [
   { path: 'cyber', component: FooterSectionComponent },
@@ -92,7 +93,9 @@ export const routes: Routes = [
     data: { roles: ['ROLE_INSTRUCTOR'] }, 
     children: [
    {path:'', component: InstructorDashboardComponent},
-    { path: 'create-courses', component: CreateCourseComponent }
+    { path: 'create-courses', component: CreateCourseComponent },
+      { path: 'create-module', component: CreateCourseModulesComponent},
+    { path: 'create-course-lesson', component: CreateLessonsComponent}
     ]},
   { path: '**', redirectTo: '/login' }, 
 ];
